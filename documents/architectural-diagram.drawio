@@ -1,0 +1,583 @@
+<mxfile host="embed.diagrams.net" modified="2024-02-12T23:58:23.868Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:122.0) Gecko/20100101 Firefox/122.0" etag="CjUkD91Cp518WVvrnXI1" version="23.1.3" type="embed">
+  <diagram id="7P2FlQ8VDmTmRBuqnvni" name="Page-1">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="fub1_Lg3gs97f4-82r_P-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="2" target="fub1_Lg3gs97f4-82r_P-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-11" value="&lt;div&gt;Info on bills&amp;nbsp;&lt;/div&gt;&lt;div&gt;(incl. marked status)&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-10">
+          <mxGeometry x="-0.3286" y="-1" relative="1" as="geometry">
+            <mxPoint x="-42" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-29" target="fub1_Lg3gs97f4-82r_P-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-340" y="400" />
+            </Array>
+            <mxPoint x="-300" y="350" as="sourcePoint" />
+            <mxPoint x="-410" y="365" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-30" value="&lt;div&gt;Meeting Times&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-15">
+          <mxGeometry x="0.0333" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eRR3eafHLvDEOPPyDQ5q-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="fub1_Lg3gs97f4-82r_P-29">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="20" y="530" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="10" y="220" />
+              <mxPoint x="10" y="590" />
+              <mxPoint x="-340" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classicThin;startFill=1;" edge="1" parent="1" source="2" target="fub1_Lg3gs97f4-82r_P-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-80" value="Marked Bills" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-79">
+          <mxGeometry x="0.1" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="2" value="&lt;div&gt;Webserver&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-176" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-2" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-510" y="150" />
+              <mxPoint x="-116" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-14" value="&lt;div&gt;Marked Bills&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-13">
+          <mxGeometry x="-0.0387" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-121" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-2" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-510" y="100" />
+              <mxPoint x="-116" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-122" value="User Authentication" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-121">
+          <mxGeometry x="-0.0767" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-2" value="Browser" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-570" y="190" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-3" target="2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="10" y="130" />
+              <mxPoint x="10" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-9" value="&lt;div&gt;bill data&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-8">
+          <mxGeometry x="0.1895" y="-1" relative="1" as="geometry">
+            <mxPoint y="-59" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-3" value="&lt;div&gt;Bill Database&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-4" target="fub1_Lg3gs97f4-82r_P-24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-790" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-39" value="Notifications" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-38">
+          <mxGeometry x="0.1606" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-4" value="Calendar App" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-570" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-5" target="fub1_Lg3gs97f4-82r_P-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-21" value="&lt;div&gt;Legislative&lt;/div&gt;&lt;div&gt;Activity information&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-20">
+          <mxGeometry x="0.25" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-5" value="Legislature information website" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="eRR3eafHLvDEOPPyDQ5q-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-24" target="fub1_Lg3gs97f4-82r_P-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-710" y="220" as="sourcePoint" />
+            <mxPoint x="-585.1600000000001" y="229.99999999999994" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-640" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eRR3eafHLvDEOPPyDQ5q-4" value="&lt;div&gt;Selected bills to track/mark&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="eRR3eafHLvDEOPPyDQ5q-3">
+          <mxGeometry x="-0.3286" y="-1" relative="1" as="geometry">
+            <mxPoint x="-11" y="20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-17" target="fub1_Lg3gs97f4-82r_P-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="270" />
+              <mxPoint x="200" y="270" />
+              <mxPoint x="200" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-19" value="&lt;div&gt;API calls&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-18">
+          <mxGeometry y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-27" target="fub1_Lg3gs97f4-82r_P-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-32" value="&lt;div&gt;Marked&lt;/div&gt;&lt;div&gt;Bills&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-31">
+          <mxGeometry x="0.0625" y="-2" relative="1" as="geometry">
+            <mxPoint y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-27" value="Marked Bills Database" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-176" y="330" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-17" value="&lt;div&gt;Backend server&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-29" value="&lt;div&gt;ICalendar Server&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-400" y="490" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-24" value="&lt;div&gt;User&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="-660" y="270" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-35" value="&lt;div&gt;Server Side&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-450" y="40" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-17" target="fub1_Lg3gs97f4-82r_P-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-23" value="Processed Bill Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-22">
+          <mxGeometry x="0.0444" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-34" value="Client Side" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-600" y="40" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-33" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-420" y="610" as="sourcePoint" />
+            <mxPoint x="-420" y="30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-47" target="fub1_Lg3gs97f4-82r_P-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-43" value="&lt;div&gt;Bill information&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-42">
+          <mxGeometry x="-0.3286" y="-1" relative="1" as="geometry">
+            <mxPoint x="-13" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-47" value="&lt;div&gt;Webserver&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-310" y="1380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-50" target="fub1_Lg3gs97f4-82r_P-47">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-510" y="1340" />
+              <mxPoint x="-250" y="1340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-77" value="&lt;div&gt;Desired Filters&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-76">
+          <mxGeometry x="-0.1059" y="-3" relative="1" as="geometry">
+            <mxPoint x="-2" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-50" value="Browser" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-570" y="1380" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-53" target="fub1_Lg3gs97f4-82r_P-47">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-124" y="1320" />
+              <mxPoint x="-124" y="1410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-52" value="&lt;div&gt;bill data&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-51">
+          <mxGeometry x="0.1895" y="-1" relative="1" as="geometry">
+            <mxPoint y="-59" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-53" value="&lt;div&gt;Bill Database&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-84" y="1290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-59" target="fub1_Lg3gs97f4-82r_P-68">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-58" value="&lt;div&gt;Legislative&lt;/div&gt;&lt;div&gt;Activity information&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-57">
+          <mxGeometry x="0.25" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-59" value="Legislature information website" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-84" y="1590" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-70" target="fub1_Lg3gs97f4-82r_P-50">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-770" y="1454.18" as="sourcePoint" />
+            <mxPoint x="-585.1600000000001" y="1420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-61" value="&lt;div&gt;Request Download&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-60">
+          <mxGeometry x="-0.3286" y="-1" relative="1" as="geometry">
+            <mxPoint x="17" y="-21" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-68" target="fub1_Lg3gs97f4-82r_P-59">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="36" y="1460" />
+              <mxPoint x="70" y="1460" />
+              <mxPoint x="70" y="1620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-63" value="&lt;div&gt;API calls&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-62">
+          <mxGeometry y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-68" value="&lt;div&gt;Backend server&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-84" y="1440" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-70" value="&lt;div&gt;User&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="-810" y="1420" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-71" value="&lt;div&gt;Server Side&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-450" y="1230" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-72" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-68" target="fub1_Lg3gs97f4-82r_P-53">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-73" value="Processed Bill Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-72">
+          <mxGeometry x="0.0444" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-74" value="Client Side" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-600" y="1230" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-75" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-420" y="1710" as="sourcePoint" />
+            <mxPoint x="-420" y="1220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-6" value="&lt;div&gt;File System&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-710" y="1510" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-50" target="1wOFmsyoWgT3sD-9kyaH-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-500" y="1120" as="sourcePoint" />
+            <mxPoint x="-600" y="1210" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-10" value="Tracked bills" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-9">
+          <mxGeometry x="0.1895" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-11" value="c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310" y="860" as="sourcePoint" />
+            <mxPoint x="-440" y="860" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-86" value="Bill Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-11">
+          <mxGeometry x="-0.0154" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classic;startFill=1;" edge="1" parent="1" source="1wOFmsyoWgT3sD-9kyaH-13" target="fub1_Lg3gs97f4-82r_P-81">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-83" value="User&#39;s Notes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-82">
+          <mxGeometry x="-0.1091" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-85" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classicThin;startFill=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-440" y="890" as="targetPoint" />
+            <mxPoint x="-306" y="890" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-87" value="Notes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-85">
+          <mxGeometry x="0.1343" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-13" value="&lt;div&gt;Webserver&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-306" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="1wOFmsyoWgT3sD-9kyaH-16" target="1wOFmsyoWgT3sD-9kyaH-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-506" y="810" />
+              <mxPoint x="-246" y="810" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-15" value="User Authentication" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-14">
+          <mxGeometry x="-0.1059" y="-3" relative="1" as="geometry">
+            <mxPoint x="-2" y="-3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-16" value="Browser" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-560" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="1wOFmsyoWgT3sD-9kyaH-19" target="1wOFmsyoWgT3sD-9kyaH-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-120" y="790" />
+              <mxPoint x="-120" y="880" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-18" value="&lt;div&gt;bill data&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-17">
+          <mxGeometry x="0.1895" y="-1" relative="1" as="geometry">
+            <mxPoint y="-59" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-19" value="&lt;div&gt;Bill Database&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-80" y="760" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="1wOFmsyoWgT3sD-9kyaH-22" target="1wOFmsyoWgT3sD-9kyaH-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-21" value="&lt;div&gt;Legislative&lt;/div&gt;&lt;div&gt;Activity information&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-20">
+          <mxGeometry x="0.25" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-22" value="Legislature information website" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-80" y="1060" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="1wOFmsyoWgT3sD-9kyaH-28" target="1wOFmsyoWgT3sD-9kyaH-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-766" y="924.1800000000001" as="sourcePoint" />
+            <mxPoint x="-581.1600000000001" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-24" value="&lt;div&gt;User Authentication&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-23">
+          <mxGeometry x="-0.3286" y="-1" relative="1" as="geometry">
+            <mxPoint x="22" y="-21" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="1wOFmsyoWgT3sD-9kyaH-27" target="1wOFmsyoWgT3sD-9kyaH-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="40" y="930" />
+              <mxPoint x="80" y="930" />
+              <mxPoint x="80" y="1090" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-26" value="&lt;div&gt;API calls&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-25">
+          <mxGeometry y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-27" value="&lt;div&gt;Backend server&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-80" y="910" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-28" value="&lt;div&gt;User&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="-650" y="940" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-29" value="&lt;div&gt;Server Side&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-446" y="700" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="1wOFmsyoWgT3sD-9kyaH-27" target="1wOFmsyoWgT3sD-9kyaH-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-31" value="Processed Bill Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="1wOFmsyoWgT3sD-9kyaH-30">
+          <mxGeometry x="0.0444" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-32" value="Client Side" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-596" y="700" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1wOFmsyoWgT3sD-9kyaH-33" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-420" y="1130" as="sourcePoint" />
+            <mxPoint x="-420" y="690" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-81" value="&lt;div&gt;Notes Database&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-306" y="1020" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-130" target="fub1_Lg3gs97f4-82r_P-135">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-124" value="&lt;div&gt;Info on bills&amp;nbsp;&lt;/div&gt;&lt;div&gt;(incl. marked status)&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-123">
+          <mxGeometry x="-0.3286" y="-1" relative="1" as="geometry">
+            <mxPoint x="-42" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-128" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=classicThin;startFill=1;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-130" target="fub1_Lg3gs97f4-82r_P-151">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-129" value="Marked Bills" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-128">
+          <mxGeometry x="0.1" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-130" value="&lt;div&gt;Webserver&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-176" y="1930" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-131" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-135" target="fub1_Lg3gs97f4-82r_P-130">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-510" y="1890" />
+              <mxPoint x="-116" y="1890" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-132" value="&lt;div&gt;Marked Bills&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-131">
+          <mxGeometry x="-0.0387" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-133" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-135" target="fub1_Lg3gs97f4-82r_P-130">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-510" y="1840" />
+              <mxPoint x="-116" y="1840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-134" value="User Authentication" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-133">
+          <mxGeometry x="-0.0767" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-135" value="Browser" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-570" y="1930" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-136" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-138" target="fub1_Lg3gs97f4-82r_P-130">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="10" y="1870" />
+              <mxPoint x="10" y="1960" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-137" value="&lt;div&gt;bill data&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-136">
+          <mxGeometry x="0.1895" y="-1" relative="1" as="geometry">
+            <mxPoint y="-59" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-138" value="&lt;div&gt;Bill Database&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1840" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-142" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-144" target="fub1_Lg3gs97f4-82r_P-152">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-143" value="&lt;div&gt;Legislative&lt;/div&gt;&lt;div&gt;Activity information&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-142">
+          <mxGeometry x="0.25" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-144" value="Legislature information website" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="2140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-145" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-154" target="fub1_Lg3gs97f4-82r_P-135">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-710" y="1960" as="sourcePoint" />
+            <mxPoint x="-585.1600000000001" y="1970" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-640" y="1960" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-146" value="&lt;div&gt;View tracked bills&lt;/div&gt;&lt;div&gt;Track new bills&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-145">
+          <mxGeometry x="-0.3286" y="-1" relative="1" as="geometry">
+            <mxPoint x="-11" y="20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-147" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-152" target="fub1_Lg3gs97f4-82r_P-144">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="2010" />
+              <mxPoint x="200" y="2010" />
+              <mxPoint x="200" y="2170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-148" value="&lt;div&gt;API calls&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-147">
+          <mxGeometry y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-151" value="Marked Bills Database" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-176" y="2070" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-152" value="&lt;div&gt;Backend server&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="1990" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-154" value="&lt;div&gt;User&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="-660" y="2010" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-155" value="&lt;div&gt;Server Side&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-450" y="1780" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-156" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="fub1_Lg3gs97f4-82r_P-152" target="fub1_Lg3gs97f4-82r_P-138">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-157" value="Processed Bill Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" connectable="0" vertex="1" parent="fub1_Lg3gs97f4-82r_P-156">
+          <mxGeometry x="0.0444" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-158" value="Client Side" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-600" y="1780" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-159" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-420" y="2350" as="sourcePoint" />
+            <mxPoint x="-420" y="1770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-184" value="U1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-710" y="41" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-185" value="U2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-690" y="710" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-186" value="&lt;div&gt;U3&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-680" y="1240" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="fub1_Lg3gs97f4-82r_P-187" value="&lt;div&gt;U4&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="-700" y="1790" width="60" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
