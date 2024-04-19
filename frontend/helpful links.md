@@ -1,0 +1,1 @@
+https://djangocentral.com/create-a-hello-world-django-application/#installing-django-in-the-virtual-environment
