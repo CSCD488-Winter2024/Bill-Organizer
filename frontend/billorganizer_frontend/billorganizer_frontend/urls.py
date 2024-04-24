@@ -22,4 +22,5 @@ from bill_app import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('',views.index, name="homepage"),
+    path('bills/',views.allbills, name="billpage"),
 ]

@@ -9,6 +9,7 @@ from .models import bill
 def allbills(request):
 
     http = ""
-    for bt in bill.objects.all():
-        http += "bill:{billtext} \n".format(billtext = bt)
-    return HttpResponse()
+    for b in bill.objects.all():
+        http += "bill:{billname} \n".format(billname = b.billname)
+
+    return HttpResponse(http)
