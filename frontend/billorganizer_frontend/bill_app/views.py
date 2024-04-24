@@ -10,6 +10,6 @@ def allbills(request):
 
     http = ""
     for b in bill.objects.all():
-        http += "bill:{billname} \n".format(billname = b.billname)
+        http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = b.billname,billdesc = b.text)
 
     return HttpResponse(http)
