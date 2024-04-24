@@ -4,3 +4,9 @@ from django.db import models
 
 class student(models.Model):
     text = models.TextField()
+
+class bill(models.Model):
+    billname = models.TextField()
+    text = models.TextField()
+    def __str__(self) -> str:
+        return self.billname
