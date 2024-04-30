@@ -5,3 +5,4 @@ django queries - https://docs.djangoproject.com/en/5.0/topics/db/queries/
 setting up database for django - https://pythonistaplanet.com/django-database-tutorial/
 fixing database when it throws errors on access - https://stackoverflow.com/a/36453000
 querying objects - https://docs.djangoproject.com/en/2.2/topics/db/queries/
+setting up a search bar - https://learndjango.com/tutorials/django-search-tutorial
