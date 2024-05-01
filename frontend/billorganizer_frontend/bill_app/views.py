@@ -15,10 +15,6 @@ def allbills(request):
         http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = b.billname,billdesc = b.text)
     return HttpResponse(http)
 
-
-class HomePageView(TemplateView):
-    template_name = 'home.html'
-
 class SearchResultsView(ListView):
     model = bill
     template_name = 'search_results.html'
