@@ -1,4 +1,9 @@
-<h1>Search Results</h1>
+<h3>Query</h3>
+<form action="{% url 'search_results' %}" method="get">
+  <input name="q" type="text" placeholder="Search...">
+</form>
+
+<h3>Search Results</h3>
 
 <ul>
   {% for bill in object_list %}
