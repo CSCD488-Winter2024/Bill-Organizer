@@ -23,6 +23,8 @@ class SearchResultsView(ListView):
     #override the inherited method
     def get_queryset(self):
         query = self.request.GET.get("q")
+        if query == None:
+            query = ""
         object_list = bill.objects.filter(
             Q(billname__icontains=query) | Q(text__icontains=query)
         )
