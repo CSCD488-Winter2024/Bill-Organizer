@@ -23,4 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('',views.index, name="homepage"),
     path('bills/',views.allbills, name="billpage"),
+    path("search/", views.SearchResultsView.as_view(), name="search_results"),
 ]

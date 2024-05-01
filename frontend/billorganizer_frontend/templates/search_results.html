@@ -1,0 +1,9 @@
+<h1>Search Results</h1>
+
+<ul>
+  {% for bill in object_list %}
+    <li>
+      {{ bill.name }}, {{ bill.text }}
+    </li>
+  {% endfor %}
+</ul>
