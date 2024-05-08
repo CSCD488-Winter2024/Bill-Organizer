@@ -19,13 +19,11 @@ class SearchResultsView(ListView):
     model = bill
     template_name = 'search_results.html'
     # queryset = bill.objects.filter(billname__icontains='2')
-    
+    q = ""
     #override the inherited method
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query == None:
-            query = ""
-        object_list = bill.objects.filter(
-            Q(billname__icontains=query) | Q(text__icontains=query)
-        )
+            query = '%%'#"select * from bill_app_bill where billname like '%%'" 
+        object_list = bill.objects.raw("select * from bill_app_bill where billname like '%{}%'".format(query))
         return object_list
