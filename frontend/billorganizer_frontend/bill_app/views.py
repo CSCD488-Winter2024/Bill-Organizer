@@ -4,6 +4,8 @@ from .models import bill
 from django.http import HttpResponse
 from django.db.models import Q 
 
+from cfg import cur, conn
+
 # Create your views here.
 def index(request):
     return HttpResponse('Hello, World!')
