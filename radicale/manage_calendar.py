@@ -53,3 +53,36 @@ def add_event(calendar : caldav.Calendar, start : datetime, end : datetime, summ
         END:VEVENT
         END:VCALENDAR"""
     )
+
+def get_events(calendar : caldav.Calendar) -> list:
+    return calendar.events()
+
+def search_events(calendar : caldav.Calendar, summary : str, start : datetime = None, end : datetime = None) -> list:
+    if start and end:
+        return calendar.search(
+            start=start,
+            end=end,
+            summary=summary,
+            event=True,
+            expand=True,
+        )
+    elif start:
+        return calendar.search(
+            start=start,
+            summary=summary,
+            event=True,
+            expand=True,
+        )
+    elif end:
+        return calendar.search(
+            end=end,
+            summary=summary,
+            event=True,
+            expand=True,
+        )
+    return calendar.search(
+        summary=summary,
+        event=True,
+        expand=True,
+    )
+    
