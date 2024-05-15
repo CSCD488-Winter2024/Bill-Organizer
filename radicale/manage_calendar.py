@@ -6,7 +6,6 @@ Remember to use
 #         url=caldav_url,
 #         username=username,
 #         password=password,
-#         headers=headers,  # Optional parameter to set HTTP headers on each request if needed
 #     ) as client:
 to create a client object and use it when calling the functions in this file.
 
