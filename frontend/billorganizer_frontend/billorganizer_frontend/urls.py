@@ -24,4 +24,5 @@ urlpatterns = [
     path('',views.index, name="homepage"),
     path('bills/',views.allbills, name="billpage"),
     path("search/", views.SearchResultsView.as_view(), name="search_results"),
+    path("bootstrap/", views.bootstrap_example, name="bootstrap_example"),
 ]

@@ -3,6 +3,8 @@ from django.views.generic import TemplateView, ListView
 from .models import bill
 from django.http import HttpResponse
 from django.db.models import Q 
+from django.template import loader
+
 
 # Create your views here.
 def index(request):
@@ -27,3 +29,7 @@ class SearchResultsView(ListView):
             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
         object_list = bill.objects.raw("select * from bill_app_bill where billname like '%{}%'".format(query))
         return object_list
+    
+def bootstrap_example(request):
+  template = loader.get_template('master.html')
+  return HttpResponse(template.render())
