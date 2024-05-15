@@ -38,7 +38,7 @@ def allbills(request):
     # Use the cursor to grab bills in sequence
     cur.execute("SELECT * FROM billorg.bills")
 
-    http = http + tabulate(cur.fetchall(), tablefmt='html',)
+    http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
 
     # for row in cur.fetchall():
     #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
