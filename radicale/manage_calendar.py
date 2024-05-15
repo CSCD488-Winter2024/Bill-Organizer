@@ -8,7 +8,7 @@ from datetime import datetime
 
 ## CONFIGURATION.  Edit here, or set up something in
 ## tests/conf_private.py (see tests/conf_private.py.EXAMPLE).
-caldav_url = "https://calendar.example.com/dav"
+caldav_url = "localhost:5232"
 username = "somebody"
 password = "hunter2"
 headers = {"X-MY-CUSTOMER-HEADER": "123"}
