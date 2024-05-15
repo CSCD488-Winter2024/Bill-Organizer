@@ -33,8 +33,9 @@ def index(request):
     return HttpResponse('Hello, World!')
 
 def allbills(request):
-
+    http = ''
     http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
     # Use the cursor to grab bills in sequence
     cur.execute("SELECT * FROM billorg.bills")
 
