@@ -8,7 +8,7 @@ Remember to use
 #         password=password,
 #         headers=headers,  # Optional parameter to set HTTP headers on each request if needed
 #     ) as client:
-to create a client
+to create a client object and use it when calling the functions in this file.
 
 see https://github.com/python-caldav/caldav/blob/master/examples/basic_usage_examples.py for more info.
 """
