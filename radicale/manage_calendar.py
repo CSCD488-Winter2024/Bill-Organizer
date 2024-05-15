@@ -11,11 +11,6 @@ from datetime import datetime
 caldav_url = "localhost:5232"
 username = "me"
 password = "password1"
-headers = {"X-MY-CUSTOMER-HEADER": "123"}
-
-
-
-
 
 
 #get calendars
