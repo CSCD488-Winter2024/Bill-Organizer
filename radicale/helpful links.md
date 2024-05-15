@@ -1,2 +1,4 @@
 - [radicale website](https://radicale.org/v2.html)
 - [python package for modifying caldav](https://github.com/python-caldav/caldav)
+- [example code](https://github.com/python-caldav/caldav/blob/master/examples/basic_usage_examples.py)
+- [python package documentation](https://caldav.readthedocs.io/en/latest/)
