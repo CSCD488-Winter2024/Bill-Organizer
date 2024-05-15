@@ -1,0 +1,2 @@
+- [radicale website](https://radicale.org/v2.html)
+- [python package for modifying caldav](https://github.com/python-caldav/caldav)
