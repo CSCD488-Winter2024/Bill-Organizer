@@ -30,8 +30,14 @@ def index(request):
 def allbills(request):
 
     http = ""
-    for b in bill.objects.all():
-        http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = b.billname,billdesc = b.text)
+    # Use the cursor to grab bills in sequence
+    cur.execute("SELECT * FROM billorg.bills")
+    for row in cur.fetchall():
+        http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
+
+
+    # for b in bill.objects.all():
+    #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = b.billname,billdesc = b.text)
     return HttpResponse(http)
 
 class SearchResultsView(ListView):
