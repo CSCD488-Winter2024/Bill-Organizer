@@ -1,5 +1,16 @@
 """
 functions to manage the calendar
+
+Remember to use
+# with caldav.DAVClient(
+#         url=caldav_url,
+#         username=username,
+#         password=password,
+#         headers=headers,  # Optional parameter to set HTTP headers on each request if needed
+#     ) as client:
+to create a client
+
+see https://github.com/python-caldav/caldav/blob/master/examples/basic_usage_examples.py for more info.
 """
 import caldav
 # from datetime import date
@@ -11,6 +22,9 @@ from datetime import datetime
 caldav_url = "localhost:5232"
 username = "me"
 password = "password1"
+
+
+
 
 
 #get calendars
