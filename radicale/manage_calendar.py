@@ -6,6 +6,17 @@ import caldav
 from datetime import datetime
 # from datetime import timedelta
 
+## CONFIGURATION.  Edit here, or set up something in
+## tests/conf_private.py (see tests/conf_private.py.EXAMPLE).
+caldav_url = "https://calendar.example.com/dav"
+username = "somebody"
+password = "hunter2"
+headers = {"X-MY-CUSTOMER-HEADER": "123"}
+
+
+
+
+
 
 #get calendars
 def get_calendars(client : caldav.DAVClient):
