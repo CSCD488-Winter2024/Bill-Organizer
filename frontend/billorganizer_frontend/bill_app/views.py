@@ -4,6 +4,23 @@ from .models import bill
 from django.http import HttpResponse
 from django.db.models import Q 
 
+
+import sys
+import os
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+ 
+# Getting the parent directory name
+# where the current directory is present.
+project_dir = os.path.dirname(os.path.dirname(os.path.dirname(current)))
+ 
+# adding the parent directory to 
+# the sys.path.
+sys.path.append(project_dir)
+ 
+# now we can import the module in the parent
+# directory.
 from cfg import cur, conn
 
 # Create your views here.
