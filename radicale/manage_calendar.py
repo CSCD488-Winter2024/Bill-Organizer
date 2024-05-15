@@ -17,8 +17,7 @@ import caldav
 from datetime import datetime
 # from datetime import timedelta
 
-## CONFIGURATION.  Edit here, or set up something in
-## tests/conf_private.py (see tests/conf_private.py.EXAMPLE).
+## CONFIGURATION.
 caldav_url = "localhost:5232"
 username = "me"
 password = "password1"
