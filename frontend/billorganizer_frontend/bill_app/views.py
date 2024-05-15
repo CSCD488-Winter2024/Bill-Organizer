@@ -4,7 +4,6 @@ from .models import bill
 from django.http import HttpResponse
 from django.db.models import Q 
 
-
 import sys
 import os
 # getting the name of the directory
@@ -23,6 +22,9 @@ sys.path.append(project_dir)
 # directory.
 from cfg import cur, conn
 
+from tabulate import tabulate
+
+
 # Create your views here.
 def index(request):
     return HttpResponse('Hello, World!')
@@ -32,8 +34,11 @@ def allbills(request):
     http = ""
     # Use the cursor to grab bills in sequence
     cur.execute("SELECT * FROM billorg.bills")
-    for row in cur.fetchall():
-        http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
+
+    http = tabulate(cur.fetchall(), tablefmt='html',)
+
+    # for row in cur.fetchall():
+    #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
 
 
     # for b in bill.objects.all():
