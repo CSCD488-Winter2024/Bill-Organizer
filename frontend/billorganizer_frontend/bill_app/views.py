@@ -4,7 +4,8 @@ from .models import bill
 from django.http import HttpResponse
 from django.db.models import Q 
 from django.template import loader
-
+from django.template import Template
+from django.template import Context
 
 import sys
 import os
@@ -32,12 +33,13 @@ def index(request):
     return HttpResponse('Hello, World!')
 
 def allbills(request):
-
-    http = ""
+    http = ''
+    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
     # Use the cursor to grab bills in sequence
     cur.execute("SELECT * FROM billorg.bills")
 
-    http = tabulate(cur.fetchall(), tablefmt='html',)
+    http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
 
     # for row in cur.fetchall():
     #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
@@ -45,6 +47,11 @@ def allbills(request):
 
     # for b in bill.objects.all():
     #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = b.billname,billdesc = b.text)
+    
+    #process the html
+    t = Template(http)
+    http = t.render(Context({}))
+
     return HttpResponse(http)
 
 class SearchResultsView(ListView):

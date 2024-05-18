@@ -7,3 +7,4 @@ fixing database when it throws errors on access - https://stackoverflow.com/a/36
 querying objects - https://docs.djangoproject.com/en/2.2/topics/db/queries/
 setting up a search bar - https://learndjango.com/tutorials/django-search-tutorial
 - [add bootstrap to django](https://www.w3schools.com/django/django_add_bootstrap5.php)
+- [processing raw html strings with django](https://stackoverflow.com/a/4848651)
