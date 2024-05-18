@@ -1,6 +1,9 @@
 {% extends "master.html" %}
-<h1>HomePage</h1>
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
 
 <form action="{% url 'search_results' %}" method="get">
   <input name="q" type="text" placeholder="Search...">
 </form>
+{% endblock %}
