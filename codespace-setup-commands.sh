@@ -12,3 +12,5 @@ sudo echo "/usr/lib/mariadb/" > /etc/ld.so.conf.d/mariadb.conf &&
 sudo ldconfig &&
 
 pip install -r /workspaces/Bill-Organizer/requirements.txt
+
+#dont forget to do echo of the commands in the discord too to set up user/pass.
