@@ -30,7 +30,8 @@ from tabulate import tabulate
 
 # Create your views here.
 def index(request):
-    return HttpResponse('Hello, World!')
+  template = loader.get_template('home.html')
+  return HttpResponse(template.render())
 
 def allbills(request):
     http = ''

@@ -18,9 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from bill_app import views
+from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
     path('',views.index, name="homepage"),
     path('bills/',views.allbills, name="billpage"),
     path("search/", views.SearchResultsView.as_view(), name="search_results"),
