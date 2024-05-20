@@ -100,10 +100,10 @@ DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bills',
-        'USER': cfg.<>,
-        'PASSWORD': cfg.<>,
-        'HOST': cfg.<>,
-        'PORT': cfg.<>,
+        'USER': cfg.db_user,
+        'PASSWORD': cfg.db_password,
+        'HOST': cfg.db_host,
+        'PORT': cfg.db_port,
     }
 }
 
