@@ -99,7 +99,7 @@ WSGI_APPLICATION = "billorganizer_frontend.wsgi.application"
 DATABASES = {
     "default": {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bills',
+        'NAME': cfg.db_database,
         'USER': cfg.db_user,
         'PASSWORD': cfg.db_password,
         'HOST': cfg.db_host,
