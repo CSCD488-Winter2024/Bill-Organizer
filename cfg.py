@@ -23,7 +23,7 @@ elif 'XDG_CONFIG_HOME' in os.environ:  # Use xdg spec if not
     _cfg_dir = Path(os.environ.get('XDG_CONFIG_HOME'), 'bill-organizer')
 elif 'LOCALAPPDATA' in os.environ:  # For Windows compatability
     _cfg_dir = Path(os.environ.get('LOCALAPPDATA'), 'bill-organizer')
-else:  # Fallback to the user's homedir
+else:  # Fallback to .config in the user's homedir
     _cfg_dir = Path('~', '.config', 'bill-organizer').expanduser()
 
 # Main configuration file
@@ -44,25 +44,19 @@ if not isinstance(_cfg_data, dict):
     raise TypeError(f'config file "{_cfg_file.absolute()}" is not formatted correctly')
 
 
-_required_vars = {
-    'base_url': str,
-    'db_user': str,
-    'db_password': str,
-    'db_host': str,
-    'db_port': int,
-    'db_database': str,
-    'create_db': bool
-}
+# Load all the needed variables
+try:
+    base_url: str = _cfg_data['base_url']
+    db_user: str = _cfg_data['db_user']
+    db_password: str = _cfg_data['db_password']
+    db_host: str = _cfg_data['db_host']
+    db_port: int = _cfg_data['db_port']
+    db_database: str = _cfg_data['db_database']
+    create_db: bool = _cfg_data['create_db']
+except Exception as e:
+    raise KeyError(f'Encountered exception {e} while loading from config file "{_cfg_file.absolute()}" - ')
 
-# Check that the config file has all the needed variables and that they are the right types
-for k, v in _required_vars.items():
-    if k not in _cfg_data:
-        raise KeyError(f'unable to find key "{k}" in config file "{_cfg_file.absolute()}"')
-    if not isinstance(_cfg_data[k], v):
-        raise TypeError(f'key "{k}" in config file "{_cfg_file.absolute()}" must be a "{v.__name__}"'
-                        f', not a "{type(_cfg_data[k]).__name__}"')
 
-base_url: str = _cfg_data['base_url'].strip()
 if not re.match(r'^https?://.+/$', base_url):
     raise ValueError(f'base_url "{base_url}" is not formatted correctly '
                      f'- does is begin with "http://" or "https://", and end with a "/"?')
@@ -70,11 +64,11 @@ if not re.match(r'^https?://.+/$', base_url):
 # Connect to the database
 try:
     conn: mariadb.Connection = mariadb.connect(
-        user=_cfg_data['db_user'],
-        password=_cfg_data['db_password'],
-        host=_cfg_data['db_host'],
-        port=_cfg_data['db_port'],
-        database=_cfg_data['db_database']
+        user=db_user,
+        password=db_password,
+        host=db_host,
+        port=db_port,
+        database=db_database
     )
 except mariadb.Error as e:
     raise e.add_note('Could not connect to db - is the database accessible, and the information in cfg.yaml correct?')
@@ -97,4 +91,4 @@ if _missing_tables:
         raise Exception(f'Missing tables in database: "{", ".join(_missing_tables)}"')
 
 # Cleanup
-del _cfg_data, _cfg_file, _cfg_dir, _missing_tables, _required_tables, _found_tables, _required_vars
+del _cfg_data, _cfg_file, _cfg_dir, _missing_tables, _required_tables, _found_tables
