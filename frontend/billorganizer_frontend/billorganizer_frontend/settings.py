@@ -12,6 +12,25 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 
+
+import sys
+import os
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+ 
+# Getting the parent directory name
+# where the current directory is present.
+project_dir = os.path.dirname(os.path.dirname(os.path.dirname(current)))
+ 
+# adding the parent directory to 
+# the sys.path.
+sys.path.append(project_dir)
+ 
+# now we can import the module in the parent
+# directory.
+import cfg
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,8 +98,12 @@ WSGI_APPLICATION = "billorganizer_frontend.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bills',
+        'USER': cfg.db_user,
+        'PASSWORD': cfg.db_password,
+        'HOST': cfg.db_host,
+        'PORT': cfg.db_port,
     }
 }
 
