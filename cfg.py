@@ -63,32 +63,61 @@ if not re.match(r'^https?://.+/$', base_url):
 
 # Connect to the database
 try:
-    conn: mariadb.Connection = mariadb.connect(
+    _pool: mariadb.ConnectionPool = mariadb.ConnectionPool(
         user=db_user,
         password=db_password,
         host=db_host,
         port=db_port,
-        database=db_database
+        database=db_database,
+        pool_name='main',
+        pool_size=20,
     )
 except mariadb.Error as e:
     raise e.add_note('Could not connect to db - is the database accessible, and the information in cfg.yaml correct?')
-cur: mariadb.Cursor = conn.cursor()
-cur.execute("show tables")
-# Determine if any tables are missing
-_required_tables = ['bills', 'lists', 'marks', 'notes', 'users']
-_found_tables = [i[0] for i in cur]
-_missing_tables = [i for i in _required_tables if i not in _found_tables]
-if _missing_tables:
-    if _cfg_data['create_db']:  # Create db from sql file if create_db is true
-        with open(Path('create-db.sql'), 'r') as _file:
-            # cur.execute() only supports one sql statement at a time, so we need to split the file into an array. We
-            # use strip() to get rid of tailing newlines that cause entries to appear in the list consisting of
-            # only a newline.
-            for i in _file.read().strip().split(';'):
-                if not i: continue  # skip any empty entries in the list
-                cur.execute(i)
-    else:  # Else just error out
-        raise Exception(f'Missing tables in database: "{", ".join(_missing_tables)}"')
+
+
+class Cursor():
+    """
+    Creates a cursor object. __ONLY__ use with a with statement. When used w/ a with statement, guarantees no race
+    conditions with other connections.
+    """
+    dictionary: bool
+    pool: mariadb.ConnectionPool = _pool
+    conn: mariadb.Connection
+    def __init__(self, dictionary: bool = False):
+        """
+
+        :param dictionary: Set to true to have the cursor return dictionary objects with column names as keys
+        instead of returning tuples.
+        """
+        self.dictionary = dictionary
+
+    def __enter__(self) -> mariadb.Cursor:
+        self.conn = self.pool.get_connection()
+        return self.conn.cursor(dictionary=self.dictionary)
+
+    def __exit__(self, _, __, ___):
+        self.conn.close()
+
+
+with Cursor() as _cur:
+    _cur.execute("show tables")
+    # Determine if any tables are missing
+    _required_tables = ['bills', 'lists', 'marks', 'notes', 'users']
+    _found_tables = [i[0] for i in _cur]
+    _missing_tables = [i for i in _required_tables if i not in _found_tables]
+    if _missing_tables:
+        if _cfg_data['create_db']:  # Create db from sql file if create_db is true
+            with open(Path('create-db.sql'), 'r') as _file:
+                # cur.execute() only supports one sql statement at a time, so we need to split the file into an array.
+                # We use strip() to get rid of tailing newlines that cause entries to appear in the list consisting of
+                # only a newline.
+                for _i in _file.read().strip().split(';'):
+                    if not _i: continue  # skip any empty entries in the list
+                    _cur.execute(_i)
+        else:  # Else just error out
+            raise Exception(f'Missing tables in database: "{", ".join(_missing_tables)}"')
+
 
 # Cleanup
-del _cfg_data, _cfg_file, _cfg_dir, _missing_tables, _required_tables, _found_tables
+del _cfg_data, _cfg_file, _cfg_dir, _missing_tables, _required_tables, _found_tables, _cur, _i, _pool
