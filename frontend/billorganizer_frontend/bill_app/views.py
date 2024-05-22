@@ -23,7 +23,7 @@ sys.path.append(project_dir)
  
 # now we can import the module in the parent
 # directory.
-from cfg import cur, conn
+from cfg import Cursor
 
 from tabulate import tabulate
 
@@ -38,9 +38,11 @@ def allbills(request):
     http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
     http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
     # Use the cursor to grab bills in sequence
-    cur.execute("SELECT * FROM billorg.bills")
+    with Cursor() as cur:
+      
+      cur.execute("SELECT * FROM billorg.bills")
 
-    http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
+      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
 
     # for row in cur.fetchall():
     #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
