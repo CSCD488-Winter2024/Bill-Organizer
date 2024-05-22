@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
-from .models import bill
+from .models import Bills
 from django.http import HttpResponse
 from django.db.models import Q 
 from django.template import loader
@@ -56,7 +56,7 @@ def allbills(request):
     return HttpResponse(http)
 
 class SearchResultsView(ListView):
-    model = bill
+    model = Bills
     template_name = 'search_results.html'
     # queryset = bill.objects.filter(billname__icontains='2')
     q = ""
@@ -65,7 +65,7 @@ class SearchResultsView(ListView):
         query = self.request.GET.get("q")
         if query == None:
             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
-        object_list = bill.objects.raw("select * from bill_app_bill where billname like '%{}%'".format(query))
+        object_list = Bills.objects.raw("select * from Bills where short_description like '%{}%'".format(query))
         return object_list
     
 def bootstrap_example(request):
