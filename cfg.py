@@ -103,7 +103,7 @@ class Cursor():
 with Cursor() as _cur:
     _cur.execute("show tables")
     # Determine if any tables are missing
-    _required_tables = ['bills', 'lists', 'marks', 'notes', 'users']
+    _required_tables = ['bills', 'lists', 'marks', 'notes']
     _found_tables = [i[0] for i in _cur]
     _missing_tables = [i for i in _required_tables if i not in _found_tables]
     if _missing_tables:
