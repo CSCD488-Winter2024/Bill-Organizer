@@ -79,7 +79,7 @@ class AuthUserUserPermissions(models.Model):
 
 class Bills(models.Model):
     biennium = models.CharField(primary_key=True, max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
-    bill_id = models.CharField(max_length=255)
+    bill_id = models.CharField(max_length=255,unique=True)
     bill_number = models.PositiveSmallIntegerField()
     substitute_version = models.PositiveIntegerField()
     engrossed_version = models.PositiveIntegerField()
@@ -152,7 +152,7 @@ class DjangoSession(models.Model):
 
 
 class Lists(models.Model):
-    id = models.CharField(primary_key=True)
+    id = models.CharField(primary_key=True,max_length=255)
     color = models.IntegerField(blank=True, null=True)
     author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author')
     name = models.CharField(max_length=255)
@@ -165,7 +165,7 @@ class Lists(models.Model):
 class Marks(models.Model):
     list = models.ForeignKey(Lists, models.DO_NOTHING, db_column='list')
     biennium = models.ForeignKey(Bills, models.DO_NOTHING, db_column='biennium')
-    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='marks_bill_set')
+    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='marks_bill_set',unique=True)
 
     class Meta:
         managed = False
@@ -173,13 +173,13 @@ class Marks(models.Model):
 
 
 class Notes(models.Model):
-    id = models.CharField(primary_key=True)
+    id = models.CharField(primary_key=True,max_length=255)
     content = models.TextField(blank=True, null=True)
     author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author')
     creation_time = models.DateTimeField()
     edit_time = models.DateTimeField()
     biennium = models.ForeignKey(Bills, models.DO_NOTHING, db_column='biennium')
-    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='notes_bill_set')
+    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='notes_bill_set',unique=True)
 
     class Meta:
         managed = False
@@ -203,7 +203,7 @@ class Sponsors(models.Model):
 
 class Status(models.Model):
     biennium = models.ForeignKey(Bills, models.DO_NOTHING, db_column='biennium')
-    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='status_bill_set')
+    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='status_bill_set',unique=True)
     history_line = models.CharField(max_length=255)
     action_date = models.DateTimeField()
     retrieved = models.DateTimeField()
