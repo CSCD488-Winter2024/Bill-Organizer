@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
-from .models import bill
+from .models import Bills
 from django.http import HttpResponse
 from django.db.models import Q 
 from django.template import loader
@@ -23,7 +23,7 @@ sys.path.append(project_dir)
  
 # now we can import the module in the parent
 # directory.
-from cfg import cur, conn
+from cfg import Cursor
 
 from tabulate import tabulate
 
@@ -38,9 +38,11 @@ def allbills(request):
     http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
     http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
     # Use the cursor to grab bills in sequence
-    cur.execute("SELECT * FROM billorg.bills")
+    with Cursor() as cur:
+      
+      cur.execute("SELECT * FROM billorg.bills")
 
-    http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
+      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
 
     # for row in cur.fetchall():
     #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
@@ -56,7 +58,7 @@ def allbills(request):
     return HttpResponse(http)
 
 class SearchResultsView(ListView):
-    model = bill
+    model = Bills
     template_name = 'search_results.html'
     # queryset = bill.objects.filter(billname__icontains='2')
     q = ""
@@ -65,7 +67,7 @@ class SearchResultsView(ListView):
         query = self.request.GET.get("q")
         if query == None:
             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
-        object_list = bill.objects.raw("select * from bill_app_bill where billname like '%{}%'".format(query))
+        object_list = Bills.objects.raw("select * from Bills where short_description like '%{}%'".format(query))
         return object_list
     
 def bootstrap_example(request):

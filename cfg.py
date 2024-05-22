@@ -120,4 +120,4 @@ with Cursor() as _cur:
 
 
 # Cleanup
-del _cfg_data, _cfg_file, _cfg_dir, _missing_tables, _required_tables, _found_tables, _cur, _i, _pool
+del _cfg_data, _cfg_file, _cfg_dir, _missing_tables, _required_tables, _found_tables, _cur, _pool
