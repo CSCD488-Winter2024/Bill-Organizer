@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Bills, Marks, Lists
+from .models import Bills, Marks, Lists,AuthUser
 
 
 import sys
@@ -22,9 +22,9 @@ sys.path.append(project_dir)
 from cfg import Cursor
 
 
-def get_lists_for_user(user_id):
+def get_lists_for_user(user:AuthUser) -> list:
     with Cursor() as cur:
-        sql = "SELECT * FROM billorg.lists WHERE author = '{}' ".format(user_id)
+        sql = "SELECT * FROM billorg.lists WHERE author = '{}' ".format(user)
         cur.execute(sql)
         lists = cur.fetchall()
         return lists
@@ -42,7 +42,7 @@ def mark_bill(list,bill):
     mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
     return mark
     
-def Create_list(user_id,list_name = 'default'):
+def Create_list(user:AuthUser,list_name = 'default'):
     """
     -- create a list
       INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
@@ -55,6 +55,6 @@ def Create_list(user_id,list_name = 'default'):
     """
     #TODO, call on user creation to make a default list
 
-    list = Lists.objects.create(author=user_id,name=list_name)
+    list = Lists.objects.create(author=user,name=list_name)
 
     return list
