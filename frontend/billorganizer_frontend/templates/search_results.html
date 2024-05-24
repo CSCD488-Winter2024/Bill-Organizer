@@ -10,9 +10,9 @@
 <h3>Search Results</h3>
 
 <ul>
-  {% for bill in object_list %}
+  {% for Bills in object_list %}
     <li>
-      {{ bill.billname }}, {{ bill.text }}
+      {{ Bills.bill_id }}, {{ Bills.bill_number }}
     </li>
   {% endfor %}
 </ul>

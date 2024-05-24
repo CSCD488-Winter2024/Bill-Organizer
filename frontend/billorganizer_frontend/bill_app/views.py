@@ -9,6 +9,7 @@ from django.template import Context
 
 import sys
 import os
+
 # getting the name of the directory
 # where the this file is present.
 current = os.path.dirname(os.path.realpath(__file__))
@@ -57,18 +58,43 @@ def allbills(request):
 
     return HttpResponse(http)
 
-class SearchResultsView(ListView):
-    model = Bills
-    template_name = 'search_results.html'
-    # queryset = bill.objects.filter(billname__icontains='2')
-    q = ""
-    #override the inherited method
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        if query == None:
-            query = '%%'#"select * from bill_app_bill where billname like '%%'" 
-        object_list = Bills.objects.raw("select * from Bills where short_description like '%{}%'".format(query))
-        return object_list
+def SearchResultsView(request):
+    http = ''
+    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+    # Use the cursor to grab bills in sequence
+    with Cursor() as cur:
+      query = request.GET.get("q")
+      if query == None:
+        query = '%%'
+      """
+      WHERE column1 LIKE '%word1%'
+      OR column2 LIKE '%word1%'
+      OR column3 LIKE '%word1%'
+      """
+      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+      cur.execute(sql)
+
+      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
+    
+    #process the html
+    t = Template(http)
+    http = t.render(Context({}))
+
+    return HttpResponse(http)
+
+# class SearchResultsView(ListView):
+#     model = Bills
+#     template_name = 'search_results.html'
+#     # queryset = bill.objects.filter(billname__icontains='2')
+#     q = ""
+#     #override the inherited method
+#     def get_queryset(self):
+#         query = self.request.GET.get("q")
+#         if query == None:
+#             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
+#         object_list = Bills.objects.raw("select * from billorg.bills where short_description like '%{}%'".format(query))
+#         return object_list
     
 def bootstrap_example(request):
   template = loader.get_template('master.html')
