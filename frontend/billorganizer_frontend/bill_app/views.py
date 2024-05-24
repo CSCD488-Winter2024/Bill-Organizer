@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
 from .models import Bills, Marks, Lists
 from . import utils
@@ -128,8 +128,10 @@ def mybills(request):
     -- get all bills in a list
     SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
     """
-    uuid = request.user.id #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django
-
+    if not request.user.is_authenticated:
+      #user is not logged in
+      return redirect('/accounts/login/')
+    uuid = request.user.id #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
     #if theres no default list then make one
     if not utils.get_lists_for_user(uuid):
       utils.Create_list(user_id=uuid)
