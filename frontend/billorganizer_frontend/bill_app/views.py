@@ -72,9 +72,10 @@ def SearchResultsView(request):
       OR column2 LIKE '%word1%'
       OR column3 LIKE '%word1%'
       """
-      results = cur.execute("SELECT * FROM billorg.bills where '%{}%' in ({})".format(query,', '.join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])))
+      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+      cur.execute(sql)
 
-      http = http + tabulate(results, tablefmt='html',)#TODO make this show column names
+      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
     
     #process the html
     t = Template(http)
