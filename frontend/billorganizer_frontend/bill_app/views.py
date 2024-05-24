@@ -67,6 +67,11 @@ def SearchResultsView(request):
       query = request.GET.get("q")
       if query == None:
         query = '%%'
+      """
+      WHERE column1 LIKE '%word1%'
+      OR column2 LIKE '%word1%'
+      OR column3 LIKE '%word1%'
+      """
       results = cur.execute("SELECT * FROM billorg.bills where '%{}%' in ({})".format(query,', '.join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])))
 
       http = http + tabulate(results, tablefmt='html',)#TODO make this show column names
