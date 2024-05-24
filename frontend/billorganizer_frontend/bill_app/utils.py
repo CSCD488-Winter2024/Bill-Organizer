@@ -54,8 +54,10 @@ def Create_list(user:User,list_name = 'default'):
     
     Call this function on sign *up*!
     """
-    #TODO, call on user creation to make a default list
+    #TODO, call on user creation
 
-    list = Lists.objects.create(author=user,name=list_name)
-
-    return list
+    #list = Lists.objects.create(id = user.id, color = 1, author=user,name=list_name)
+    with Cursor() as cur:
+        sql = "INSERT INTO lists (author, name) VALUES ({}, {}) RETURNING uuid;".format(user.id,list_name)
+        list_id = cur.execute(sql)
+        return list_id
