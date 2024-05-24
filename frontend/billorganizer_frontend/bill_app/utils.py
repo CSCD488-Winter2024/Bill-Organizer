@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Bills, Marks, Lists,AuthUser
+from .models import Bills, Marks, Lists
+from django.contrib.auth.models import User
 
 
 import sys
@@ -42,7 +43,7 @@ def mark_bill(list,bill):
     mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
     return mark
     
-def Create_list(user:AuthUser,list_name = 'default'):
+def Create_list(user:User,list_name = 'default'):
     """
     -- create a list
       INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
