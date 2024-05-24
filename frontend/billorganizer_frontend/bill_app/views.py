@@ -57,18 +57,37 @@ def allbills(request):
 
     return HttpResponse(http)
 
-class SearchResultsView(ListView):
-    model = Bills
-    template_name = 'search_results.html'
-    # queryset = bill.objects.filter(billname__icontains='2')
-    q = ""
-    #override the inherited method
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        if query == None:
-            query = '%%'#"select * from bill_app_bill where billname like '%%'" 
-        object_list = Bills.objects.raw("select * from billorg.bills where short_description like '%{}%'".format(query))
-        return object_list
+def SearchResultsView(request):
+    http = ''
+    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+    # Use the cursor to grab bills in sequence
+    with Cursor() as cur:
+      query = request.GET.get("q")
+      if query == None:
+        query = '%%'
+      cur.execute("SELECT * FROM billorg.bills where short_description like '%{}%'")
+
+      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
+    
+    #process the html
+    t = Template(http)
+    http = t.render(Context({}))
+
+    return HttpResponse(http)
+
+# class SearchResultsView(ListView):
+#     model = Bills
+#     template_name = 'search_results.html'
+#     # queryset = bill.objects.filter(billname__icontains='2')
+#     q = ""
+#     #override the inherited method
+#     def get_queryset(self):
+#         query = self.request.GET.get("q")
+#         if query == None:
+#             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
+#         object_list = Bills.objects.raw("select * from billorg.bills where short_description like '%{}%'".format(query))
+#         return object_list
     
 def bootstrap_example(request):
   template = loader.get_template('master.html')
