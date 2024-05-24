@@ -135,8 +135,11 @@ def mybills(request):
     #user = request.user #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
     user = get_user(request)
     #if theres no default list then make one
+    list_id  = None
     if not utils.get_lists_for_user(user):
-      utils.Create_list(user=user)
+      list_id = 1
+      list_id = utils.Create_list(user=user)
+      list_id = 2
 
     mylists = utils.get_lists_for_user(user)
     #arbitrarily picking the first one for now #TODO change this to grab "default" or another requested list name
