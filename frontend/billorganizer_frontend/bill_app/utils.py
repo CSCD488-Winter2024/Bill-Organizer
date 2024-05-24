@@ -25,7 +25,7 @@ from cfg import Cursor
 
 def get_lists_for_user(user:User) -> list:
     with Cursor() as cur:
-        sql = "SELECT * FROM billorg.lists WHERE author = '{}' ".format(user)
+        sql = "SELECT * FROM billorg.lists WHERE author = '{}' ".format(user.id)
         cur.execute(sql)
         lists = cur.fetchall()
         return lists
