@@ -22,9 +22,12 @@ sys.path.append(project_dir)
 from cfg import Cursor
 
 
-def get_lists_for_user:
-    sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
-      cur.execute(sql)
+def get_lists_for_user(user_id):
+    with Cursor() as cur:
+        sql = "SELECT * FROM billorg.lists WHERE author = '{}' ".format(user_id)
+        cur.execute(sql)
+        lists = cur.fetchall()
+        return lists
 
 
 def mark_bill(list,bill):
