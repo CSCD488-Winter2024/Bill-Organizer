@@ -7,10 +7,6 @@ from django.template import loader
 from django.template import Template
 from django.template import Context
 
-import inspect
-bill_attributes  = inspect.getmembers(Bills, lambda a:not(inspect.isroutine(a)))
-bill_attributes = [a for a in bill_attributes if not(a[0].startswith('__') and a[0].endswith('__'))]
-
 import sys
 import os
 
@@ -71,7 +67,7 @@ def SearchResultsView(request):
       query = request.GET.get("q")
       if query == None:
         query = '%%'
-      cur.execute("SELECT * FROM billorg.bills where '%{}%' in ({})".format(query,', '.join([a[0] for a in bill_attributes])))
+      cur.execute("SELECT * FROM billorg.bills where '%{}%' in ({})".format(query,', '.join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])))
 
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
     
