@@ -67,7 +67,7 @@ class SearchResultsView(ListView):
         query = self.request.GET.get("q")
         if query == None:
             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
-        object_list = Bills.objects.raw("select * from Bills where short_description like '%{}%'".format(query))
+        object_list = Bills.objects.raw("select * from billorg.bills where short_description like '%{}%'".format(query))
         return object_list
     
 def bootstrap_example(request):
