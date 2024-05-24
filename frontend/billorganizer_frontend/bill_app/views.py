@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from .models import Bills, Marks, Lists
+from . import utils
 from django.http import HttpResponse
 from django.db.models import Q 
 from django.template import loader
@@ -103,40 +104,45 @@ def bootstrap_example(request):
 
 
 def mybills(request):
-    http = ''
-    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
-    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
-    # Use the cursor to grab bills in sequence
-    with Cursor() as cur:
-      query = request.GET.get("q")
-      if query == None:
-        query = '%%'
-      """
-      select biennium and billid from marks where uuid == <my uuid>
+  http = ''
+  http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+  http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+  # Use the cursor to grab bills in sequence
+  with Cursor() as cur:
+    query = request.GET.get("q")
+    if query == None:
+      query = '%%'
+    """
+    select biennium and billid from marks where uuid == <my uuid>
 
 
-      -- create a list
-      INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
+    -- create a list
+    INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
 
-       list = List.objects.create(author=user,name="default")
+      list = List.objects.create(author=user,name="default")
 
-      -- add bills to a list
-      INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
-       marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
+    -- add bills to a list
+    INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
+      marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
 
-      -- get all bills in a list
-      SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
-      """
-      uuid = request.user.id #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django
+    -- get all bills in a list
+    SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
+    """
+    uuid = request.user.id #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django
 
-      list_id = 
-      sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
-      cur.execute(sql)
+    mylists = utils.get_lists_for_user(uuid)
+    #arbitrarily picking the first one for now #TODO change this to grab "default" or another requested list name
+    list = mylists[0]
+    #grab id (by index not key unfortunately)
+    list_id = list[0] 
 
-      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
-    
-    #process the html
-    t = Template(http)
-    http = t.render(Context({}))
+    sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
+    cur.execute(sql)
 
-    return HttpResponse(http)
+    http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
+  
+  #process the html
+  t = Template(http)
+  http = t.render(Context({}))
+
+  return HttpResponse(http)
