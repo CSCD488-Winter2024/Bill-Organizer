@@ -111,7 +111,7 @@ def mybills(request):
       if query == None:
         query = '%%'
       """
-
+      select biennium and billid from marks where uuid == <my uuid>
       """
       sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
       cur.execute(sql)
