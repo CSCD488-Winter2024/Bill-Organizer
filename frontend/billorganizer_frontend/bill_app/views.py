@@ -117,8 +117,11 @@ def mybills(request):
       -- create a list
       INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
 
+       list = List.objects.create(author=user,name="default")
+
       -- add bills to a list
       INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
+       marked_bill = Bills.objects.create(list=list,biennium=bill.biennium,bill=bill)
 
       -- get all bills in a list
       SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
