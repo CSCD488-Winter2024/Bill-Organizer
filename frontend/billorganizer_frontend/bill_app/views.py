@@ -99,3 +99,27 @@ def SearchResultsView(request):
 def bootstrap_example(request):
   template = loader.get_template('master.html')
   return HttpResponse(template.render())
+
+
+def mybills(request):
+    http = ''
+    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+    # Use the cursor to grab bills in sequence
+    with Cursor() as cur:
+      query = request.GET.get("q")
+      if query == None:
+        query = '%%'
+      """
+
+      """
+      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+      cur.execute(sql)
+
+      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
+    
+    #process the html
+    t = Template(http)
+    http = t.render(Context({}))
+
+    return HttpResponse(http)
