@@ -112,6 +112,16 @@ def mybills(request):
         query = '%%'
       """
       select biennium and billid from marks where uuid == <my uuid>
+
+      
+      -- create a list
+      INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
+
+      -- add bills to a list
+      INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
+
+      -- get all bills in a list
+      SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
       """
       sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
       cur.execute(sql)
