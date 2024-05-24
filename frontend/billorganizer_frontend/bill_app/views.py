@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
-from .models import Bills
+from .models import Bills, Marks, Lists
 from django.http import HttpResponse
 from django.db.models import Q 
 from django.template import loader
@@ -100,12 +100,34 @@ def bootstrap_example(request):
   template = loader.get_template('master.html')
   return HttpResponse(template.render())
 
-def mark_bill():
-    pass
-    #TODO
-def Create_list():
-    pass
+def mark_bill(list,bill):
+    """
+    Set a bill to be marked in a list (add it to the marks table.)
+
+
+    -- add bills to a list
+      INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
+       marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
+    """
+    mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
+    return mark
+    
+def Create_list(user_id,list_name = 'default'):
+    """
+    -- create a list
+      INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
+
+       list = Lists.objects.create(author=user,name="default")
+
+    
+    
+    Call this function on sign *up*!
+    """
     #TODO, call on user creation to make a default list
+
+    list = Lists.objects.create(author=user_id,name=list_name)
+
+    return list
 
 def mybills(request):
     http = ''
@@ -127,15 +149,15 @@ def mybills(request):
 
       -- add bills to a list
       INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
-       marked_bill = Bills.objects.create(list=list,biennium=bill.biennium,bill=bill)
+       marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
 
       -- get all bills in a list
       SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
       """
-      uuid = request.user.id #not sure if this is the right id. pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django
+      uuid = request.user.id #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django
 
-
-      sql = "SELECT * FROM billorg.marks WHERE uuid = {}".format(uuid)
+      list_id = 
+      sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
       cur.execute(sql)
 
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
