@@ -78,8 +78,8 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Bills(models.Model):
-    biennium = models.CharField(primary_key=True, max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
-    bill_id = models.CharField(max_length=255,unique=True)
+    biennium = models.CharField(max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
+    bill_id = models.CharField(primary_key=True, max_length=255,unique=True)
     bill_number = models.PositiveSmallIntegerField()
     substitute_version = models.PositiveIntegerField()
     engrossed_version = models.PositiveIntegerField()
