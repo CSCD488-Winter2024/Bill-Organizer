@@ -71,6 +71,7 @@ try:
         database=db_database,
         pool_name='main',
         pool_size=20,
+        autocommit=True
     )
 except mariadb.Error as e:
     raise e.add_note('Could not connect to db - is the database accessible, and the information in cfg.yaml correct?')
