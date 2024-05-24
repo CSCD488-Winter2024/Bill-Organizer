@@ -126,7 +126,7 @@ def mybills(request):
       uuid = request.user.id #not sure if this is the right id
 
 
-      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+      sql = "SELECT * FROM billorg.bills WHERE "
       cur.execute(sql)
 
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
