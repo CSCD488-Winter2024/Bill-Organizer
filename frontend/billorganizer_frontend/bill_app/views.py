@@ -123,7 +123,7 @@ def mybills(request):
       -- get all bills in a list
       SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
       """
-      uuid = request.user.id #not sure if this is the right id
+      uuid = request.user.id #not sure if this is the right id. pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django
 
 
       sql = "SELECT * FROM billorg.bills WHERE "
