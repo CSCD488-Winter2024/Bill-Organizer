@@ -100,6 +100,12 @@ def bootstrap_example(request):
   template = loader.get_template('master.html')
   return HttpResponse(template.render())
 
+def mark_bill():
+    pass
+    #TODO
+def Create_list():
+    pass
+    #TODO, call on user creation to make a default list
 
 def mybills(request):
     http = ''
