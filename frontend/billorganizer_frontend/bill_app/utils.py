@@ -23,7 +23,7 @@ sys.path.append(project_dir)
 from cfg import Cursor
 
 
-def get_lists_for_user(user:AuthUser) -> list:
+def get_lists_for_user(user:User) -> list:
     with Cursor() as cur:
         sql = "SELECT * FROM billorg.lists WHERE author = '{}' ".format(user)
         cur.execute(sql)
