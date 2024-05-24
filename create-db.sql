@@ -21,6 +21,7 @@ create table if not exists bills
     sponsor_id         smallint unsigned                                         not null,
     long_description   varchar(255)                                              not null,
     legal_title        varchar(255)                                              not null,
+    party              varchar(255)                                              not null,
     primary key (biennium, bill_id)
 );
 
