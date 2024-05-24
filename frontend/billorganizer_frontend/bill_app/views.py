@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.template import loader
 from django.template import Template
 from django.template import Context
+from django.contrib.auth import get_user
 
 import sys
 import os
@@ -131,7 +132,8 @@ def mybills(request):
     if not request.user.is_authenticated:
       #user is not logged in
       return redirect('/accounts/login/')
-    user = request.user #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
+    #user = request.user #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
+    user = get_user(request)
     #if theres no default list then make one
     if not utils.get_lists_for_user(user):
       utils.Create_list(user=user)
