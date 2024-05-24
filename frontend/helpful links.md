@@ -9,3 +9,4 @@ setting up a search bar - https://learndjango.com/tutorials/django-search-tutori
 - [add bootstrap to django](https://www.w3schools.com/django/django_add_bootstrap5.php)
 - [processing raw html strings with django](https://stackoverflow.com/a/4848651)
 - [setting up login](https://learndjango.com/tutorials/django-login-and-logout-tutorial)
+- [downloading excel file] (https://stackoverflow.com/a/58122376)
