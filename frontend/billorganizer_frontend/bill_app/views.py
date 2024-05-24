@@ -129,7 +129,7 @@ def mybills(request):
       uuid = request.user.id #not sure if this is the right id. pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django
 
 
-      sql = "SELECT * FROM billorg.bills WHERE "
+      sql = "SELECT * FROM billorg.marks WHERE uuid = {}".format(uuid)
       cur.execute(sql)
 
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
