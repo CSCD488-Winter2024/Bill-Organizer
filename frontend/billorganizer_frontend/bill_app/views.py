@@ -100,34 +100,7 @@ def bootstrap_example(request):
   template = loader.get_template('master.html')
   return HttpResponse(template.render())
 
-def mark_bill(list,bill):
-    """
-    Set a bill to be marked in a list (add it to the marks table.)
 
-
-    -- add bills to a list
-      INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
-       marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
-    """
-    mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
-    return mark
-    
-def Create_list(user_id,list_name = 'default'):
-    """
-    -- create a list
-      INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
-
-       list = Lists.objects.create(author=user,name="default")
-
-    
-    
-    Call this function on sign *up*!
-    """
-    #TODO, call on user creation to make a default list
-
-    list = Lists.objects.create(author=user_id,name=list_name)
-
-    return list
 
 def mybills(request):
     http = ''
