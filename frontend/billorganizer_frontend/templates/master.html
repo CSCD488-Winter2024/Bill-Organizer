@@ -1,13 +1,15 @@
 <!DOCTYPE html>
+{% load unicorn %}
 <html>
 <head>
+  {% unicorn_scripts %}
   <title>{% block title %}{% endblock %}</title>
   {% load bootstrap5 %}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
 </head>
 <body>
-
+  {% csrf_token %}
 <div class="container">
   <ul class="nav bg-info">
     <li class="nav-item">

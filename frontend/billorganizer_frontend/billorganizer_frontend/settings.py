@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "bill_app",
     "bootstrap5",
     "accounts",
+    "django_unicorn"
 ]
 
 MIDDLEWARE = [
