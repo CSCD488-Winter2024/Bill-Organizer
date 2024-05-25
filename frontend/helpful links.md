@@ -9,3 +9,6 @@ setting up a search bar - https://learndjango.com/tutorials/django-search-tutori
 - [add bootstrap to django](https://www.w3schools.com/django/django_add_bootstrap5.php)
 - [processing raw html strings with django](https://stackoverflow.com/a/4848651)
 - [setting up login](https://learndjango.com/tutorials/django-login-and-logout-tutorial)
+- [downloading excel file](https://stackoverflow.com/a/58122376)
+- [possible button interaction library](https://www.reddit.com/r/django/comments/l01a68/comment/gjsiyol/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button)
+- [example of button use with django unicorn](https://www.django-unicorn.com/examples/click-counter)

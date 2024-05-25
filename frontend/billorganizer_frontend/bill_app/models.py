@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class AuthGroup(models.Model):
@@ -78,8 +79,8 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Bills(models.Model):
-    biennium = models.CharField(primary_key=True, max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
-    bill_id = models.CharField(max_length=255,unique=True)
+    biennium = models.CharField(max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
+    bill_id = models.CharField(primary_key=True, max_length=255,unique=True)
     bill_number = models.PositiveSmallIntegerField()
     substitute_version = models.PositiveIntegerField()
     engrossed_version = models.PositiveIntegerField()
@@ -154,7 +155,7 @@ class DjangoSession(models.Model):
 class Lists(models.Model):
     id = models.CharField(primary_key=True,max_length=255)
     color = models.IntegerField(blank=True, null=True)
-    author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author')
+    author = models.ForeignKey(User, models.DO_NOTHING, db_column='author')
     name = models.CharField(max_length=255)
 
     class Meta:
