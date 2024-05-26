@@ -151,7 +151,7 @@ def mybills(request):
 
 
     #make a link to get list bills as excel
-    filepath = export.get_file(list)
+    filepath = export.get_file(list_id)
     http +="<a  href='{}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
 
