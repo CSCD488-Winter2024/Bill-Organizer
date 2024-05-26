@@ -22,6 +22,24 @@ sys.path.append(project_dir)
 from cfg import Cursor
 import util as backend_utils
 
+def create_default_list(user:User) -> Lists:
+    """
+    create default list for user if not exist
+    """
+    if not get_lists_for_user(user):
+      Create_list(user=user)
+
+def get_default_list(user:User) -> Lists:
+    """
+    returns the default list (or just an arbitrary one. it needs to be fixed when we add more lists)
+    """
+    if not get_lists_for_user(user):
+      create_default_list(user)
+
+    mylists = get_lists_for_user(user)
+    #arbitrarily picking the first one for now #TODO change this to grab "default" or another requested list name
+    list = mylists[0]
+    return list
 
 def get_lists_for_user(user:User) -> list:
     with Cursor() as cur:
