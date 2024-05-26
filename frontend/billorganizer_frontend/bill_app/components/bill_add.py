@@ -1,8 +1,6 @@
 from django_unicorn.components import UnicornView
 
 from django.contrib.auth import get_user
-import sys
-import os
 
 from .. import utils
 
