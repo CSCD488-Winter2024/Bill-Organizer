@@ -109,7 +109,7 @@ def mybills(request):
   http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
   http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
   # Use the cursor to grab bills in sequence
-  with Cursor() as cur:
+  with Cursor() as cur: #TODO set dictionary to true
     query = request.GET.get("q")
     if query == None:
       query = '%%'
