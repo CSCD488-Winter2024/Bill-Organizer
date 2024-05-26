@@ -53,6 +53,7 @@ try:
     db_port: int = _cfg_data['db_port']
     db_database: str = _cfg_data['db_database']
     create_db: bool = _cfg_data['create_db']
+    program_name: str = "billorg - bill tracking software"
 except Exception as e:
     raise KeyError(f'Encountered exception {e} while loading from config file "{_cfg_file.absolute()}" - ')
 
