@@ -27,7 +27,7 @@ sys.path.append(project_dir)
 # now we can import the module in the parent
 # directory.
 from cfg import Cursor
-
+import export
 from tabulate import tabulate
 
 
@@ -147,6 +147,13 @@ def mybills(request):
     list = mylists[0]
     #grab id (by index not key unfortunately)
     list_id = list[0] 
+
+
+
+    #make a link to get list bills as excel
+    filepath = export.get_file(list)
+    http +="<a  href='{}' download> Download this list as CSV </a>".format(filepath)
+
 
     sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
     cur.execute(sql)
