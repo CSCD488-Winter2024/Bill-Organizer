@@ -152,7 +152,7 @@ def mybills(request):
 
     #make a link to get list bills as excel
     filepath = export.get_file(list)
-    http +="<a  href='{}' download> Download this list as CSV </a>".format(filepath)
+    http +="<a  href='{}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
 
     sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
