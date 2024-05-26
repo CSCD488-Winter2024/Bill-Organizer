@@ -74,6 +74,7 @@ def SearchResultsView(request):
       OR column2 LIKE '%word1%'
       OR column3 LIKE '%word1%'
       """
+      #TODO make this not a security vulnerability
       sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
       cur.execute(sql)
 
