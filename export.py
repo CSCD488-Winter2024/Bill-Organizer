@@ -3,7 +3,7 @@ import tempfile
 import csv
 
 
-async def get_file(list_id: str) -> str:
+def get_file(list_id: str) -> str:
     """
     Dumps the contents of the bills table into a csv-formatted file, and returns the file name.
     :param list_id: the uuid of the list to export. if NONE, export all bills.
