@@ -65,8 +65,9 @@ def allbills(request):
     return HttpResponse(http)
 
 def SearchResultsView(request):
-    http = ''
-    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http = '{% load unicorn %}{% csrf_token %}'
+    http += "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    # http = '{% extends "master.html" %}'
     http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
@@ -87,8 +88,17 @@ def SearchResultsView(request):
 
       
       cur.execute(sql)
-      
-      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
+
+      rows = cur.fetchall()
+      rows = [list(row) for row in rows]
+      #add a button to the left on each row.
+      button_text = "{{% unicorn 'bill-add' bill={} %}}"
+      for row in rows:
+        cur_button = button_text.format(row[1]) #pass bill id (2nd item in the row)
+
+        row.insert(0, cur_button) #on the left
+
+      http = http + tabulate(rows, tablefmt='html',)#TODO make this show column names
     
     #process the html
     t = Template(http)
