@@ -5,7 +5,7 @@ from django.contrib.auth import get_user
 from .. import utils
 
 
-class ButtonAddView(UnicornView):
+class BillAddView(UnicornView):
     already_clicked = False
     
     #TODO call util add bill to list function. and also integrate this view into the search bills view
