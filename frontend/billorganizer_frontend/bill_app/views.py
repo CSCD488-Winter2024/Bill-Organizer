@@ -65,8 +65,9 @@ def allbills(request):
     return HttpResponse(http)
 
 def SearchResultsView(request):
-    http = ''
-    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http = '{% load unicorn %}{% csrf_token %}'
+    http += "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    # http = '{% extends "master.html" %}'
     http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
     http += '{% load static %}'
     # Use the cursor to grab bills in sequence
