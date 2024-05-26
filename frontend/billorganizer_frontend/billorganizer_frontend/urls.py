@@ -28,6 +28,6 @@ urlpatterns = [
     path('bills/',views.allbills, name="billpage"),
     path("search/", views.SearchResultsView, name="search_results"),
     path("bootstrap/", views.bootstrap_example, name="bootstrap_example"),
-    path("mybills/", views.mybills, name="my_bills")
+    path("mybills/", views.mybills, name="my_bills"),
     path("unicorn/", include("django_unicorn.urls")),
 ]
