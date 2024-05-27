@@ -27,7 +27,7 @@ sys.path.append(project_dir)
 # now we can import the module in the parent
 # directory.
 from cfg import Cursor
-import export
+import util as backend_utils
 from tabulate import tabulate
 
 
@@ -151,7 +151,7 @@ def mybills(request):
 
 
     #make a link to get list bills as excel
-    filepath = export.get_file(list_id)
+    filepath = backend_utils.export(list_id)
     http +="<a  href='{}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
 
