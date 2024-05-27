@@ -20,11 +20,11 @@ def export(list_id: str) -> str:
                 select * from marks 
                     join bills on marks.biennium = bills.biennium and marks.bill_id = bills.bill_id 
                     join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id 
-                    where marks.list = ?
+                    where marks.list = '?'
             """, tuple(list_id))
 
         # csv.writer requires a file-like object, so we create a temporary file to hold the csv data
-        with tempfile.TemporaryFile(mode='w+', delete=False, delete_on_close=False) as file:
+        with tempfile.NamedTemporaryFile(mode='w+', delete=False, delete_on_close=False) as file:
             writer = csv.writer(file)
 
             # Grab the names of the bill table columns to use as headers
