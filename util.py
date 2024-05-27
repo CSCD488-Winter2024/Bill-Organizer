@@ -2,6 +2,7 @@ import cfg
 import tempfile
 import csv
 
+tempfile.tempdir = './frontend/billorganizer_frontend/bill_app/static/tmp/'
 
 def export(list_id: str) -> str:
     """

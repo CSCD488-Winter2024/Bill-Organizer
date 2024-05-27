@@ -109,6 +109,7 @@ def mybills(request):
   http = ''
   http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
   http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+  http += '{% load static %}'
   # Use the cursor to grab bills in sequence
   with Cursor() as cur: #TODO set dictionary to true
     query = request.GET.get("q")
@@ -151,8 +152,8 @@ def mybills(request):
 
 
     #make a link to get list bills as excel
-    filepath = backend_utils.export(list_id)
-    http +="<a  href='{}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
+    filepath = utils.export_list(list_id)
+    http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
 
     sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
