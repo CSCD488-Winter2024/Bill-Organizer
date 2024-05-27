@@ -1,12 +1,74 @@
 from django_unicorn.components import UnicornView
 
 from django.contrib.auth import get_user
-
+from django.http import HttpResponse
+from django.template import Template
+from django.template import Context
 from .. import utils
+import sys
+import os
 
+# getting the name of the directory
+# where the this file is present.
+current = os.path.dirname(os.path.realpath(__file__))
+ 
+# Getting the parent directory name
+# where the current directory is present.
+project_dir = os.path.dirname(os.path.dirname(os.path.dirname(current)))
+ 
+# adding the parent directory to 
+# the sys.path.
+sys.path.append(project_dir)
+ 
+# now we can import the module in the parent
+# directory.
+from cfg import Cursor
+import util as backend_utils
+from tabulate import tabulate
 
-class BillAddView(UnicornView):
+class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/en/5.0/topics/class-based-views/
     already_clicked = False
+
+    html = '{% load unicorn %}{% csrf_token %}'
+    html += "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    # html = '{% extends "master.html" %}'
+    html += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+    # Use the cursor to grab bills in sequence
+    with Cursor() as cur:
+      query = self.request.GET.get("q")
+      if query == None:
+        query = '%%'
+      """
+      WHERE column1 LIKE '%word1%'
+      OR column2 LIKE '%word1%'
+      OR column3 LIKE '%word1%'
+      """
+      #TODO make this not a security vulnerability
+      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+      
+      #make a link to get bills as excel
+      # filepath = utils.export_query(sql)
+      # html +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
+
+      
+      cur.execute(sql)
+
+      rows = cur.fetchall()
+      rows = [list(row) for row in rows]
+      #add a button to the left on each row.
+      button_text = '<button unicorn:click="add_bill">add to list</button>' #TODO Look at clicks example
+      for row in rows:
+        cur_button = button_text.format(row[1]) #pass bill id (2nd item in the row)
+
+        row.insert(0, cur_button) #on the left
+
+      html = html + tabulate(rows, tablefmt='html',)#TODO make this show column names
+    
+    #process the html
+    t = Template(html)
+    html = t.render(Context({}))
+
+    return HttpResponse(html)
     
     def mount(self):
         arg = self.component_args[0]
