@@ -1,21 +1,21 @@
-<!-- unicorn/templates/unicorn/todo.html -->
+{% load unicorn %}{% csrf_token %}
+{% load bootstrap5 %  }{% bootstrap_css %}{% bootstrap_javascript %}
+<!-- {% extends "master.html" %}' -->
+<link href="/static/css/contents.css" rel="stylesheet" type="text/css">
+
+
 <div>
-    <form unicorn:submit.prevent="add">
-        <input type="text" unicorn:model.lazy="task" placeholder="New task" id="task"></input>
-    </form>
-    <button unicorn:click="add">Add</button>
+    <button unicorn:click="add_bill">Add</button>
 
     <p>
-        {% if tasks %}
+        {% if rows %}
         <ul>
-            {% for task in tasks %}
-            <li>{{ task }}</li>
+            {% for row in rows %}
+            <li>{{ row }}</li>
             {% endfor %}
         </ul>
-
-        <button unicorn:click="$reset">Clear all tasks</button>
         {% else %}
-        No tasks 🎉
+        No bills found
         {% endif %}
     </p>
 </div>
