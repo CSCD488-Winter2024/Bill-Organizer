@@ -80,7 +80,7 @@ class AuthUserUserPermissions(models.Model):
 
 class Bills(models.Model):
     biennium = models.CharField(primary_key=True, max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
-    bill_id = models.CharField(max_length=255)
+    bill_id = models.CharField(max_length=255,unique=True)
     bill_number = models.PositiveSmallIntegerField(blank=True, null=True)
     substitute_version = models.PositiveIntegerField(blank=True, null=True)
     engrossed_version = models.PositiveIntegerField(blank=True, null=True)
@@ -171,7 +171,7 @@ class Marks(models.Model):
 
 
 class Notes(models.Model):
-    id = models.CharField(primary_key=True)
+    id = models.CharField(primary_key=True,max_length=256)
     content = models.TextField(blank=True, null=True)
     author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author')
     creation_time = models.DateTimeField()
