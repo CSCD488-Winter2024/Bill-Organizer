@@ -13,7 +13,7 @@ create table if not exists bills
     short_description  varchar(255)                                              not null,
     request            varchar(255)                                              not null,
     introduced_date    timestamp                                                 not null,
-    sponsor_id         smallint unsigned                                         not null,
+    sponsor_id         mediumint unsigned                                        not null,
     long_description   varchar(255)                                              not null,
     legal_title        varchar(255)                                              not null,
     companion_bill     varchar(255)                                              null,
@@ -39,7 +39,7 @@ create table if not exists status
 create table if not exists sponsors
 (
     biennium     varchar(255)                        not null,
-    id           int                                 not null,
+    id           mediumint unsigned                  not null,
     long_name    varchar(255)                        not null,
     agency       varchar(255)                        not null,
     acronym      varchar(255)                        not null,
