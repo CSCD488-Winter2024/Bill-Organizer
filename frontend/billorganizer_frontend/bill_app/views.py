@@ -27,7 +27,7 @@ sys.path.append(project_dir)
 # now we can import the module in the parent
 # directory.
 from cfg import Cursor
-
+import util as backend_utils
 from tabulate import tabulate
 
 
@@ -40,9 +40,13 @@ def allbills(request):
     http = ''
     http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
     http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+    http += '{% load static %}'
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
-      
+      #make a link to get list bills as excel
+      filepath = utils.export_list(None)
+      http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
+
       cur.execute("SELECT * FROM billorg.bills")
 
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
@@ -76,8 +80,14 @@ def SearchResultsView(request):
       """
       #TODO make this not a security vulnerability
       sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
-      cur.execute(sql)
+      
+      #make a link to get bills as excel
+      filepath = utils.export_query(sql)
+      http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
+      
+      cur.execute(sql)
+      
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
     
     #process the html
@@ -109,6 +119,7 @@ def mybills(request):
   http = ''
   http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
   http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+  http += '{% load static %}'
   # Use the cursor to grab bills in sequence
   with Cursor() as cur: #TODO set dictionary to true
     query = request.GET.get("q")
@@ -147,6 +158,13 @@ def mybills(request):
     list = mylists[0]
     #grab id (by index not key unfortunately)
     list_id = list[0] 
+
+
+
+    #make a link to get list bills as excel
+    filepath = utils.export_list(list_id)
+    http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
+
 
     sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
     cur.execute(sql)
