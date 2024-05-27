@@ -80,9 +80,9 @@ def SearchResultsView(request):
       """
       #TODO make this not a security vulnerability
       sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
-      
+      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '?' OR ".join(["'?'"])
       #make a link to get bills as excel
-      filepath = utils.export_query(sql)
+      filepath = utils.export_query(sql,*[])
       http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       
