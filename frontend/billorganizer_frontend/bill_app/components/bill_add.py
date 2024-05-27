@@ -29,10 +29,7 @@ from tabulate import tabulate
 class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/en/5.0/topics/class-based-views/
     already_clicked = False
 
-    html = '{% load unicorn %}{% csrf_token %}'
-    html += "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
-    # html = '{% extends "master.html" %}'
-    html += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       query = self.request.GET.get("q")
@@ -55,20 +52,6 @@ class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/
 
       rows = cur.fetchall()
       rows = [list(row) for row in rows]
-      #add a button to the left on each row.
-      button_text = '<button unicorn:click="add_bill">add to list</button>' #TODO Look at clicks example
-      for row in rows:
-        cur_button = button_text.format(row[1]) #pass bill id (2nd item in the row)
-
-        row.insert(0, cur_button) #on the left
-
-      html = html + tabulate(rows, tablefmt='html',)#TODO make this show column names
-    
-    #process the html
-    t = Template(html)
-    html = t.render(Context({}))
-
-    return HttpResponse(html)
     
     def mount(self):
         arg = self.component_args[0]

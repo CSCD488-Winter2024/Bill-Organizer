@@ -31,4 +31,5 @@ urlpatterns = [
     path("bootstrap/", views.bootstrap_example, name="bootstrap_example"),
     path("mybills/", views.mybills, name="my_bills"),
     path("unicorn/", include("django_unicorn.urls")),
+    path("billadd/", bill_add),
 ]
