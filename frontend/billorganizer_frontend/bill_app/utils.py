@@ -63,8 +63,21 @@ def Create_list(user:User,list_name = 'default'):
         return list_id
 
 def export_list(list_id:str) -> str:
-
+    """
+    export the bills in a list to a query.
+    """
     fullpath = backend_utils.export(list_id)
+    common_path = os.path.commonpath((fullpath,current))
+    relative_path = fullpath.split(common_path)[1]#format it as /static/tmp/file.csv
+    #remove the extra /static since django adds one.
+    relative_path = relative_path.split('/static')[1]
+    return relative_path
+
+def export_query(query:str) -> str:
+    """
+    export the results of a query to csv 
+    """
+    fullpath = backend_utils.export(list_id=None,query=query)
     common_path = os.path.commonpath((fullpath,current))
     relative_path = fullpath.split(common_path)[1]#format it as /static/tmp/file.csv
     #remove the extra /static since django adds one.
