@@ -79,27 +79,24 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Bills(models.Model):
-    biennium = models.CharField(max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
-    bill_id = models.CharField(primary_key=True, max_length=255,unique=True)
-    bill_number = models.PositiveSmallIntegerField()
-    substitute_version = models.PositiveIntegerField()
-    engrossed_version = models.PositiveIntegerField()
-    original_agency = models.CharField(max_length=255)
-    active = models.IntegerField()
-    companion_bill = models.CharField(max_length=255, blank=True, null=True)
+    biennium = models.CharField(primary_key=True, max_length=255)  # The composite primary key (biennium, bill_id) found, that is not supported. The first column is selected.
+    bill_id = models.CharField(max_length=255)
+    bill_number = models.PositiveSmallIntegerField(blank=True, null=True)
+    substitute_version = models.PositiveIntegerField(blank=True, null=True)
+    engrossed_version = models.PositiveIntegerField(blank=True, null=True)
+    original_agency = models.CharField(max_length=255, blank=True, null=True)
+    active = models.IntegerField(blank=True, null=True)
     fiscal_notes = models.CharField(max_length=11, blank=True, null=True)
+    appropriations = models.IntegerField(blank=True, null=True)
     requested_by = models.CharField(max_length=41, blank=True, null=True)
-    first_accessed = models.DateTimeField()
-    last_accessed = models.DateTimeField()
+    short_description = models.CharField(max_length=255, blank=True, null=True)
+    request = models.CharField(max_length=255, blank=True, null=True)
+    introduced_date = models.DateTimeField(blank=True, null=True)
+    sponsor_id = models.PositiveIntegerField(blank=True, null=True)
+    long_description = models.CharField(max_length=255, blank=True, null=True)
+    legal_title = models.CharField(max_length=255, blank=True, null=True)
+    companion_bill = models.CharField(max_length=255, blank=True, null=True)
     last_updated = models.DateTimeField()
-    appropriations = models.IntegerField()
-    short_description = models.CharField(max_length=255)
-    request = models.CharField(max_length=255)
-    introduced_date = models.DateTimeField()
-    sponsor = models.CharField(max_length=255)
-    sponsor_id = models.PositiveSmallIntegerField()
-    long_description = models.CharField(max_length=255)
-    legal_title = models.CharField(max_length=255)
 
     class Meta:
         managed = False
@@ -153,7 +150,7 @@ class DjangoSession(models.Model):
 
 
 class Lists(models.Model):
-    id = models.CharField(primary_key=True,max_length=255)
+    id = models.CharField(primary_key=True, max_length=36)
     color = models.IntegerField(blank=True, null=True)
     author = models.ForeignKey(User, models.DO_NOTHING, db_column='author')
     name = models.CharField(max_length=255)
@@ -166,7 +163,7 @@ class Lists(models.Model):
 class Marks(models.Model):
     list = models.ForeignKey(Lists, models.DO_NOTHING, db_column='list')
     biennium = models.ForeignKey(Bills, models.DO_NOTHING, db_column='biennium')
-    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='marks_bill_set',unique=True)
+    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='marks_bill_set')
 
     class Meta:
         managed = False
@@ -174,13 +171,13 @@ class Marks(models.Model):
 
 
 class Notes(models.Model):
-    id = models.CharField(primary_key=True,max_length=255)
+    id = models.CharField(primary_key=True)
     content = models.TextField(blank=True, null=True)
     author = models.ForeignKey(AuthUser, models.DO_NOTHING, db_column='author')
     creation_time = models.DateTimeField()
     edit_time = models.DateTimeField()
     biennium = models.ForeignKey(Bills, models.DO_NOTHING, db_column='biennium')
-    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='notes_bill_set',unique=True)
+    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='notes_bill_set')
 
     class Meta:
         managed = False
@@ -188,31 +185,37 @@ class Notes(models.Model):
 
 
 class Sponsors(models.Model):
-    biennium = models.CharField(primary_key=True, max_length=255)  # The composite primary key (biennium, email) found, that is not supported. The first column is selected.
-    party = models.CharField(max_length=255)
-    district = models.CharField(max_length=255)
-    phone = models.CharField(max_length=255)
-    email = models.CharField(max_length=255)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    biennium = models.CharField(primary_key=True, max_length=255)  # The composite primary key (biennium, id) found, that is not supported. The first column is selected.
+    id = models.PositiveIntegerField()
+    long_name = models.CharField(max_length=255, blank=True, null=True)
+    agency = models.CharField(max_length=255, blank=True, null=True)
+    acronym = models.CharField(max_length=255, blank=True, null=True)
+    party = models.CharField(max_length=255, blank=True, null=True)
+    district = models.CharField(max_length=255, blank=True, null=True)
+    phone = models.CharField(max_length=255, blank=True, null=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    last_updated = models.DateTimeField()
 
     class Meta:
         managed = False
         db_table = 'sponsors'
-        unique_together = (('biennium', 'email'),)
+        unique_together = (('biennium', 'id'),)
 
 
 class Status(models.Model):
-    biennium = models.ForeignKey(Bills, models.DO_NOTHING, db_column='biennium')
-    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='status_bill_set',unique=True)
-    history_line = models.CharField(max_length=255)
+    biennium = models.OneToOneField(Bills, models.DO_NOTHING, db_column='biennium', primary_key=True)  # The composite primary key (biennium, bill_id, action_date) found, that is not supported. The first column is selected.
+    bill = models.ForeignKey(Bills, models.DO_NOTHING, to_field='bill_id', related_name='status_bill_set')
+    history_line = models.CharField(max_length=255, blank=True, null=True)
     action_date = models.DateTimeField()
-    retrieved = models.DateTimeField()
-    amended_by_opposite_body = models.IntegerField()
-    vetoed = models.CharField(max_length=18)
-    amendments_exist = models.IntegerField()
-    status = models.CharField(max_length=255)
+    amended_by_opposite_body = models.IntegerField(blank=True, null=True)
+    vetoed = models.CharField(max_length=18, blank=True, null=True)
+    amendments_exist = models.IntegerField(blank=True, null=True)
+    status = models.CharField(max_length=255, blank=True, null=True)
+    last_updated = models.DateTimeField()
 
     class Meta:
         managed = False
         db_table = 'status'
+        unique_together = (('biennium', 'bill', 'action_date'),)
