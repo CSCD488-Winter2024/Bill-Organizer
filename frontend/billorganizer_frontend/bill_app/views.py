@@ -93,7 +93,7 @@ def SearchResultsView(request):
       rows = cur.fetchall()
       rows = [list(row) for row in rows]
       #add a button to the left on each row.
-      button_text = "{{% unicorn 'bill-add' bill={} %}}"
+      button_text = '<button unicorn:click="add_bill">add to list</button>' #TODO Look at clicks example
       for row in rows:
         cur_button = button_text.format(row[1]) #pass bill id (2nd item in the row)
 
