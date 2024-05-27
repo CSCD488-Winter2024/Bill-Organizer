@@ -8,6 +8,7 @@ from django.template import loader
 from django.template import Template
 from django.template import Context
 from django.contrib.auth import get_user
+# from django_unicorn.
 
 import sys
 import os
@@ -83,8 +84,8 @@ def SearchResultsView(request):
       sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
       
       #make a link to get bills as excel
-      filepath = utils.export_query(sql)
-      http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
+      # filepath = utils.export_query(sql)
+      # http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       
       cur.execute(sql)
