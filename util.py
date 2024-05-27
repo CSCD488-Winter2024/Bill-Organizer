@@ -25,7 +25,7 @@ def export(list_id: str) -> str:
             """, tuple(list_id))
 
         # csv.writer requires a file-like object, so we create a temporary file to hold the csv data
-        with tempfile.NamedTemporaryFile(mode='w+', delete=False) as file:
+        with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.csv') as file:
             writer = csv.writer(file)
 
             # Grab the names of the bill table columns to use as headers
