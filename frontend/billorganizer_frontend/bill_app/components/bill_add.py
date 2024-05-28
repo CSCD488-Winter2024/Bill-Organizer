@@ -1,6 +1,6 @@
 from typing import List
 from django_unicorn.components import UnicornView
-
+from ..models import Bills
 from django.contrib.auth import get_user
 from django.http import HttpResponse
 from django.template import Template
