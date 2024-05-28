@@ -24,8 +24,10 @@ from cfg import Cursor
 import util as backend_utils
 from tabulate import tabulate
 
-class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/en/5.0/topics/class-based-views/
+class BillAddView(UnicornView):
   
+#TODO fix this so it doesnt crash when you load the page pls.
+
   def mount(self):
     # arg = self.component_args[0]
     # kwarg = self.component_kwargs["name"]
