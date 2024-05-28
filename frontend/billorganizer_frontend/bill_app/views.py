@@ -179,3 +179,11 @@ def mybills(request):
   http = t.render(Context({}))
 
   return HttpResponse(http)
+
+
+def bill_add(request): # see https://www.django-unicorn.com/docs/components/
+    # context = {"hello": {"world": {"name": "Galaxy"}}}
+
+    return loader.get_template("bill_add.html").render() #, context=context)
+    # template = loader.get_template('master.html')
+    #   return HttpResponse(template.render())

@@ -28,10 +28,9 @@ import util as backend_utils
 from tabulate import tabulate
 
 class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/en/5.0/topics/class-based-views/
-  already_clicked = False
 
-  def __init__(self, component_args: List | None = None, **kwargs):
-    super().__init__(component_args, **kwargs)
+  def mount(self, component_args: List | None = None, **kwargs):
+    self.already_clicked = False
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       query = self.request.GET.get("q")
