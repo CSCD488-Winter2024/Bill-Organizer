@@ -42,8 +42,8 @@ class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/
       OR column3 LIKE '%word1%'
       """
       #TODO make this not a security vulnerability
-      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
-      
+      # sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+      sql = "SELECT * FROM billorg.bills"
       #make a link to get bills as excel
       # filepath = utils.export_query(sql)
       # html +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
@@ -53,8 +53,8 @@ class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/
 
       rows = cur.fetchall()
       self.rows = [list(row) for row in rows]
-      self.biennium_index = cur.description.index('biennium')
-      self.bill_id_index = cur.description.index('bill_id')
+      self.biennium_index = 0#cur.description.index('biennium')
+      self.bill_id_index = 1#cur.description.index('bill_id')
   
   # def mount(self):
   #   arg = self.component_args[0]
