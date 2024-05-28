@@ -2,9 +2,6 @@ from typing import List
 from django_unicorn.components import UnicornView
 from ..models import Bills
 from django.contrib.auth import get_user
-from django.http import HttpResponse
-from django.template import Template
-from django.template import Context
 from .. import utils
 import sys
 import os
@@ -28,19 +25,23 @@ import util as backend_utils
 from tabulate import tabulate
 
 class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/en/5.0/topics/class-based-views/
-
-  def mount(self, component_args: List | None = None, **kwargs):
-    self.already_clicked = False
+  
+  def mount(self):
+    # arg = self.component_args[0]
+    # kwarg = self.component_kwargs["name"]
+    """
+    mount is called when the component is imported by the template?
+    """
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
-      query = self.request.GET.get("q")
-      if query == None:
-        query = '%%'
-      """
-      WHERE column1 LIKE '%word1%'
-      OR column2 LIKE '%word1%'
-      OR column3 LIKE '%word1%'
-      """
+      # query = self.request.GET.get("q")
+      # if query == None:
+      #   query = '%%'
+      # """
+      # WHERE column1 LIKE '%word1%'
+      # OR column2 LIKE '%word1%'
+      # OR column3 LIKE '%word1%'
+      # """
       #TODO make this not a security vulnerability
       # sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
       sql = "SELECT * FROM billorg.bills"
@@ -50,17 +51,10 @@ class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/
 
       
       cur.execute(sql)
-
       rows = cur.fetchall()
       self.rows = [list(row) for row in rows]
       self.biennium_index = 0#cur.description.index('biennium')
       self.bill_id_index = 1#cur.description.index('bill_id')
-  
-  # def mount(self):
-  #   arg = self.component_args[0]
-  #   kwarg = self.component_kwargs["name"]
-
-  #   assert (f"{arg} {kwarg}" == "Hello World", kwarg)
 
   def add_bill(self,row:list):
     """
@@ -68,6 +62,7 @@ class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/
     
     mark the bill so it is added to the default list of the user.
     """
+    assert False
     user = get_user(self.request)
     list = utils.get_default_list(user)
     list_id = list.id 
