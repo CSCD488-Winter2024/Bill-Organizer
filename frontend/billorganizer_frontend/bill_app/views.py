@@ -190,9 +190,9 @@ def mybills(request):
 
 
 def bill_add(request): # see https://www.django-unicorn.com/docs/components/
-    # context = {"hello": {"world": {"name": "Galaxy"}}}
+    context = {}#{"hello": {"world": {"name": "Galaxy"}}}
 
-    return render(request, "unicorn/bill_add.html") #, context=context)
+    return render(request, "unicorn/bill_add.html", context=context)
     # template = loader.get_template('master.html')
     #   return HttpResponse(template.render())
     # return loader.get_template("unicorn/bill_add.html").render() #, context=context)
