@@ -182,8 +182,24 @@ def mybills(request):
 
 
 def bill_add(request): # see https://www.django-unicorn.com/docs/components/
-    context = {}#{"hello": {"world": {"name": "Galaxy"}}}
+  # Use the cursor to grab bills in sequence
+  with Cursor() as cur:
+    # query = self.request.GET.get("q")
+    # if query == None:
+    #   query = '%%'
+    #TODO make this not a security vulnerability
+    # sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+    sql = "SELECT * FROM billorg.bills"
+    #make a link to get bills as excel
+    # filepath = utils.export_query(sql)
+    # html +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
+    
+    cur.execute(sql)
+    rows = cur.fetchall()
+    rows = [list(row) for row in rows]
+
+    context = {"rows": rows}
     return render(request, "unicorn/bill_add.html", context=context)
     # template = loader.get_template('master.html')
     #   return HttpResponse(template.render())

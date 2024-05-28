@@ -23,6 +23,8 @@ sys.path.append(project_dir)
 from cfg import Cursor
 import util as backend_utils
 from tabulate import tabulate
+biennium_index = 0#cur.description.index('biennium')
+bill_id_index = 1#cur.description.index('bill_id')
 
 class BillAddView(UnicornView):
   
@@ -34,29 +36,7 @@ class BillAddView(UnicornView):
     """
     mount is called when the component is imported by the template?
     """
-    # Use the cursor to grab bills in sequence
-    with Cursor() as cur:
-      # query = self.request.GET.get("q")
-      # if query == None:
-      #   query = '%%'
-      # """
-      # WHERE column1 LIKE '%word1%'
-      # OR column2 LIKE '%word1%'
-      # OR column3 LIKE '%word1%'
-      # """
-      #TODO make this not a security vulnerability
-      # sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
-      sql = "SELECT * FROM billorg.bills"
-      #make a link to get bills as excel
-      # filepath = utils.export_query(sql)
-      # html +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
-
-      
-      cur.execute(sql)
-      rows = cur.fetchall()
-      self.rows = [list(row) for row in rows]
-      self.biennium_index = 0#cur.description.index('biennium')
-      self.bill_id_index = 1#cur.description.index('bill_id')
+    self.rows = self.component_kwargs["rows"]
 
   def add_bill(self,row:list):
     """
@@ -68,7 +48,7 @@ class BillAddView(UnicornView):
     user = get_user(self.request)
     list = utils.get_default_list(user)
     list_id = list.id 
-    biennium = row[self.biennium_index]
-    bill_id = row[self.bill_id_index]
+    biennium = row[biennium_index]
+    bill_id = row[bill_id_index]
 
     utils.mark_bill(list_id=list_id, biennennium=biennium, bill_id=bill_id)
