@@ -1,3 +1,4 @@
+from typing import List
 from django_unicorn.components import UnicornView
 
 from django.contrib.auth import get_user
@@ -27,9 +28,10 @@ import util as backend_utils
 from tabulate import tabulate
 
 class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/en/5.0/topics/class-based-views/
-    already_clicked = False
+  already_clicked = False
 
-
+  def __init__(self, component_args: List | None = None, **kwargs):
+    super().__init__(component_args, **kwargs)
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       query = self.request.GET.get("q")
@@ -51,16 +53,16 @@ class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/
       cur.execute(sql)
 
       rows = cur.fetchall()
-      rows = [list(row) for row in rows]
-    
-    def mount(self):
-        arg = self.component_args[0]
-        kwarg = self.component_kwargs["name"]
+      self.rows = [list(row) for row in rows]
+  
+  def mount(self):
+    arg = self.component_args[0]
+    kwarg = self.component_kwargs["name"]
 
-        assert (f"{arg} {kwarg}" == "Hello World", kwarg)
+    assert (f"{arg} {kwarg}" == "Hello World", kwarg)
 
-    #TODO call util add bill to list function. and also integrate this view into the search bills view
-    def add_bill(self,bill):
-        user = get_user(self.request)
-        list = utils.get_default_list(user)
-        utils.mark_bill(list=list,bill=bill)
+  #TODO call util add bill to list function. and also integrate this view into the search bills view
+  def add_bill(self,bill):
+    user = get_user(self.request)
+    list = utils.get_default_list(user)
+    utils.mark_bill(list=list,bill=bill)
