@@ -54,15 +54,25 @@ class BillAddView(UnicornView):#TODO follow this https://docs.djangoproject.com/
 
       rows = cur.fetchall()
       self.rows = [list(row) for row in rows]
+      self.biennium_index = cur.description.index('biennium')
+      self.bill_id_index = cur.description.index('bill_id')
   
-  def mount(self):
-    arg = self.component_args[0]
-    kwarg = self.component_kwargs["name"]
+  # def mount(self):
+  #   arg = self.component_args[0]
+  #   kwarg = self.component_kwargs["name"]
 
-    assert (f"{arg} {kwarg}" == "Hello World", kwarg)
+  #   assert (f"{arg} {kwarg}" == "Hello World", kwarg)
 
-  #TODO call util add bill to list function. and also integrate this view into the search bills view
-  def add_bill(self,bill):
+  def add_bill(self,row:list):
+    """
+    row: a list of strings of bill attributes
+    
+    mark the bill so it is added to the default list of the user.
+    """
     user = get_user(self.request)
     list = utils.get_default_list(user)
-    utils.mark_bill(list=list,bill=bill)
+    list_id = list.id 
+    biennium = row[self.biennium_index]
+    bill_id = row[self.bill_id_index]
+
+    utils.mark_bill(list_id=list_id, biennennium=biennium, bill_id=bill_id)

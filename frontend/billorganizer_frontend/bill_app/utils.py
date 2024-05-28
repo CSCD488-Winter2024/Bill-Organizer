@@ -22,6 +22,15 @@ sys.path.append(project_dir)
 from cfg import Cursor
 import util as backend_utils
 
+# def get_bill_object(biennium,bill_id) -> Bills:
+#     query = "select * from bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id where biennium = '?' and bill_id = '?'"
+#     with Cursor() as cur:
+#         cur.execute(query)
+#         bills = cur.fetchall()
+#         assert len(bills) == 1, "multiple bills with the same key and biennium were found? this shouldn't happen."
+#         bill = bills[0]
+#         return bill
+
 def create_default_list(user:User) -> Lists:
     """
     create default list for user if not exist
@@ -49,17 +58,15 @@ def get_lists_for_user(user:User) -> list:
         return lists
 
 
-def mark_bill(list,bill):
+def mark_bill(list_id:str,biennium:str,bill_id:str):
     """
     Set a bill to be marked in a list (add it to the marks table.)
-
-
-    -- add bills to a list
-      INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
-       marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
     """
-    mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
-    return mark
+    # mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
+    with Cursor() as cur:
+        sql = "INSERT INTO marks (list, biennium, bill) VALUES ('?', '?','?') RETURNING id;"
+        mark_id = cur.execute(sql,list_id,biennium,bill_id)
+        return mark_id
     
 def Create_list(user:User,list_name = 'default'):
     """
