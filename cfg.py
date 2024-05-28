@@ -18,45 +18,47 @@ import yaml
 
 # Figure out where config files are
 if 'BILL_ORGANIZER_HOME' in os.environ:  # If user set a homedir for us via env, use it
-    _cfg_dir = Path(os.environ.get('BILL_ORGANIZER_HOME'))
+    cfg_dir = Path(os.environ.get('BILL_ORGANIZER_HOME'))
 elif 'XDG_CONFIG_HOME' in os.environ:  # Use xdg spec if not
-    _cfg_dir = Path(os.environ.get('XDG_CONFIG_HOME'), 'bill-organizer')
+    cfg_dir = Path(os.environ.get('XDG_CONFIG_HOME'), 'bill-organizer')
 elif 'LOCALAPPDATA' in os.environ:  # For Windows compatability
-    _cfg_dir = Path(os.environ.get('LOCALAPPDATA'), 'bill-organizer')
+    cfg_dir = Path(os.environ.get('LOCALAPPDATA'), 'bill-organizer')
 else:  # Fallback to .config in the user's homedir
-    _cfg_dir = Path('~', '.config', 'bill-organizer').expanduser()
+    cfg_dir = Path('~', '.config', 'bill-organizer').expanduser()
 
 # Main configuration file
-_cfg_file: Path = Path(_cfg_dir, 'cfg.yml')
+cfg_file: Path = Path(cfg_dir, 'cfg.yml')
 
 # Safely open and read the file as yaml
-if not _cfg_file.is_file():
-    raise FileNotFoundError(f'main configuration file not found: "{_cfg_file}"')
+if not cfg_file.is_file():
+    raise FileNotFoundError(f'main configuration file not found: "{cfg_file}"')
 try:
-    with open(_cfg_file, 'r') as _file:
-        _cfg_data: dict = yaml.safe_load(_file)
+    with open(cfg_file, 'r') as _file:
+        cfg_data: dict = yaml.safe_load(_file)
 except Exception as e:
-    e.add_note(f'could not read config file "{_cfg_file.absolute()}" correctly')
+    e.add_note(f'could not read config file "{cfg_file.absolute()}" correctly')
     raise e
 
 # Error out if the config file is not a dict (.e.g the file was formatted as a list instead)
-if not isinstance(_cfg_data, dict):
-    raise TypeError(f'config file "{_cfg_file.absolute()}" is not formatted correctly')
+if not isinstance(cfg_data, dict):
+    raise TypeError(f'config file "{cfg_file.absolute()}" is not formatted correctly')
+
+
+def fetch_var(var_name: str):
+    if val := os.environ.get(f'BILL_ORGANIZER_{var_name}'.upper()) is not None: return val  # Use environ variable if it exists
+    if val := cfg_data.get(var_name) is not None: return val  # Else grab from config file
+    raise KeyError(f'variable "{var_name}" not found in config file or environment variables')
 
 
 # Load all the needed variables
-try:
-    base_url: str = _cfg_data['base_url']
-    db_user: str = _cfg_data['db_user']
-    db_password: str = _cfg_data['db_password']
-    db_host: str = _cfg_data['db_host']
-    db_port: int = _cfg_data['db_port']
-    db_database: str = _cfg_data['db_database']
-    create_db: bool = _cfg_data['create_db']
-    program_name: str = "billorg - bill tracking software"
-except Exception as e:
-    raise KeyError(f'Encountered exception {e} while loading from config file "{_cfg_file.absolute()}" - ')
-
+base_url: str = fetch_var('base_url')
+db_user: str = fetch_var('db_user')
+db_password: str = fetch_var('db_password')
+db_host: str = fetch_var('db_host')
+db_port: int = fetch_var('db_port')
+db_database: str = fetch_var('db_database')
+create_db: bool = fetch_var('create_db')
+program_name: str = fetch_var('name')
 
 if not re.match(r'^https?://.+/$', base_url):
     raise ValueError(f'base_url "{base_url}" is not formatted correctly '
@@ -64,7 +66,7 @@ if not re.match(r'^https?://.+/$', base_url):
 
 # Connect to the database
 try:
-    _pool: mariadb.ConnectionPool = mariadb.ConnectionPool(
+    pool: mariadb.ConnectionPool = mariadb.ConnectionPool(
         user=db_user,
         password=db_password,
         host=db_host,
@@ -78,14 +80,15 @@ except mariadb.Error as e:
     raise e.add_note('Could not connect to db - is the database accessible, and the information in cfg.yaml correct?')
 
 
-class Cursor():
+class Cursor:
     """
     Creates a cursor object. __ONLY__ use with a with statement. When used w/ a with statement, guarantees no race
     conditions with other connections.
     """
     dictionary: bool
-    pool: mariadb.ConnectionPool = _pool
+    pool: mariadb.ConnectionPool = pool
     conn: mariadb.Connection
+
     def __init__(self, dictionary: bool = False):
         """
 
@@ -102,24 +105,24 @@ class Cursor():
         self.conn.close()
 
 
-with Cursor() as _cur:
-    _cur.execute("show tables")
+with Cursor() as cur:
+    cur.execute("show tables")
     # Determine if any tables are missing
-    _required_tables = ['bills', 'lists', 'marks', 'notes']
-    _found_tables = [i[0] for i in _cur]
-    _missing_tables = [i for i in _required_tables if i not in _found_tables]
-    if _missing_tables:
-        if _cfg_data['create_db']:  # Create db from sql file if create_db is true
+    required_tables = ['bills', 'lists', 'marks', 'notes']
+    found_tables = [i[0] for i in cur]
+    missing_tables = [i for i in required_tables if i not in found_tables]
+    if missing_tables:
+        if cfg_data['create_db']:  # Create db from sql file if create_db is true
             with open(Path('create-db.sql'), 'r') as _file:
                 # cur.execute() only supports one sql statement at a time, so we need to split the file into an array.
                 # We use strip() to get rid of tailing newlines that cause entries to appear in the list consisting of
                 # only a newline.
                 for _i in _file.read().strip().split(';'):
                     if not _i: continue  # skip any empty entries in the list
-                    _cur.execute(_i)
+                    cur.execute(_i)
         else:  # Else just error out
-            raise Exception(f'Missing tables in database: "{", ".join(_missing_tables)}"')
+            raise Exception(f'Missing tables in database: "{", ".join(missing_tables)}"')
 
 
 # Cleanup
-del _cfg_data, _cfg_file, _cfg_dir, _missing_tables, _required_tables, _found_tables, _cur, _pool
+del cfg_data, cfg_file, cfg_dir, missing_tables, required_tables, found_tables, cur, pool
