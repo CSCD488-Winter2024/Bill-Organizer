@@ -5,17 +5,26 @@
 
 
 <div>
-    <button unicorn:click="add_bill">Add</button>
+    
 
-    <p>
+    <table>
         {% if rows %}
-        <ul>
+        <tbody>
             {% for row in rows %}
-            <li>{{ row }}</li>
+            <!-- <li>{{ row }}</li> -->
+            <button unicorn:click="add_bill">Add</button>
+            
+            <tr>
+                {% for datum in row %}
+
+                <td>{{ datum }}</td>
+                    
+                {% endfor %}
+            </tr>
             {% endfor %}
-        </ul>
+        </tbody>
         {% else %}
         No bills found
         {% endif %}
-    </p>
+    </table>
 </div>
