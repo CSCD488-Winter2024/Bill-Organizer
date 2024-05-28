@@ -1,5 +1,7 @@
-{% load unicorn %}{% csrf_token %}
+{% load unicorn %}{% unicorn_scripts %}{% csrf_token %}
 {% load bootstrap5 %  }{% bootstrap_css %}{% bootstrap_javascript %}
+
+{% unicorn 'bill-add' %}
 <!-- {% extends "master.html" %}' -->
 <link href="/static/css/contents.css" rel="stylesheet" type="text/css">
 
