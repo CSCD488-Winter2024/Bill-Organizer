@@ -12,8 +12,8 @@
         <tbody>
             {% for row in rows %}
             <!-- <li>{{ row }}</li> -->
-            <button unicorn:click="add_bill">Add</button>
-            
+            <button unicorn:click="add_bill(row)">Add</button>
+
             <tr>
                 {% for datum in row %}
 
