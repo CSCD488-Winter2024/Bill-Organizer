@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView
-from .models import Bills, Marks, Lists
+from .models import Bills, Marks, Lists, Sponsors
 from . import utils
 from django.http import HttpResponse
 from django.db.models import Q 
@@ -47,7 +47,7 @@ def allbills(request):
       filepath = utils.export_list(None)
       http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
-      cur.execute("SELECT * FROM billorg.bills")
+      cur.execute("select * from bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id")
 
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
 
@@ -80,7 +80,7 @@ def SearchResultsView(request):
       OR column3 LIKE '%word1%'
       """
       #TODO make this not a security vulnerability
-      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+      sql = "SELECT * FROM bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id WHERE " + " LIKE '%{}%' OR ".format(query).join([ 'bills.'+f.name for f in Bills._meta.fields + Bills._meta.many_to_many ] + [ 'sponsors.'+f.name for f in Sponsors._meta.fields + Sponsors._meta.many_to_many ])
       #sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '?' OR ".join(["'?'"])
       #make a link to get bills as excel
       filepath = utils.export_query(sql)#,*[])
