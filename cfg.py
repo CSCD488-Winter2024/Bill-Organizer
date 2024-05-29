@@ -45,8 +45,14 @@ if not isinstance(cfg_data, dict):
 
 
 def fetch_var(var_name: str):
-    if val := os.environ.get(f'BILL_ORGANIZER_{var_name}'.upper()) is not None: return val  # Use environ variable if it exists
-    if val := cfg_data.get(var_name) is not None: return val  # Else grab from config file
+    val = os.environ.get(f'BILL_ORGANIZER_{var_name}'.upper()) # Use environ variable if it exists
+      
+    if val is not None:
+        return val 
+    else:# Else grab from config file
+        val = cfg_data.get(var_name)
+    if val is not None:
+        return val
     raise KeyError(f'variable "{var_name}" not found in config file or environment variables')
 
 
@@ -60,6 +66,7 @@ db_database: str = fetch_var('db_database')
 create_db: bool = fetch_var('create_db')
 program_name: str = fetch_var('name')
 
+assert type(base_url) == str, type(base_url)
 if not re.match(r'^https?://.+/$', base_url):
     raise ValueError(f'base_url "{base_url}" is not formatted correctly '
                      f'- does is begin with "http://" or "https://", and end with a "/"?')
