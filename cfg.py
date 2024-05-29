@@ -45,14 +45,8 @@ if not isinstance(cfg_data, dict):
 
 
 def fetch_var(var_name: str):
-    val = os.environ.get(f'BILL_ORGANIZER_{var_name}'.upper()) # Use environ variable if it exists
-      
-    if val is not None:
-        return val 
-    else:# Else grab from config file
-        val = cfg_data.get(var_name)
-    if val is not None:
-        return val
+    if (val := os.environ.get(f'BILL_ORGANIZER_{var_name}'.upper())) is not None: return val  # Use environ variable if it exists
+    if (val := cfg_data.get(var_name)) is not None: return val  # Else grab from config file
     raise KeyError(f'variable "{var_name}" not found in config file or environment variables')
 
 
@@ -132,4 +126,4 @@ with Cursor() as cur:
 
 
 # Cleanup
-del cfg_data, cfg_file, cfg_dir, missing_tables, required_tables, found_tables, cur, pool
+del cfg_data, cfg_file, cfg_dir, missing_tables, required_tables, found_tables, cur, pool, fetch_var
