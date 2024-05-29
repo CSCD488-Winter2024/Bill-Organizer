@@ -9,6 +9,7 @@ from django.template import loader
 from django.template import Template
 from django.template import Context
 from django.contrib.auth import get_user
+import json
 
 from datetime import date, datetime
 
@@ -212,7 +213,7 @@ def bill_add(request): # see https://www.django-unicorn.com/docs/components/
     rows = [list(row) for row in rows]
     
     js_rows = dumps(rows,default=json_serial)
-    print(js_rows[:150]+"\n\n")
+    # print(js_rows[:150]+"\n\n")
     context = {"rows": rows,"js_rows" :js_rows}
     return render(request, "unicorn/bill_add.html", context=context)
     # template = loader.get_template('master.html')
@@ -220,9 +221,10 @@ def bill_add(request): # see https://www.django-unicorn.com/docs/components/
     # return loader.get_template("unicorn/bill_add.html").render() #, context=context)
 def bill_button(request):
   row = request.GET.get("row")
-  # print(i)
+  row = json.loads(row)
+  print("row is:", row)
 
-  list_id = utils.get_default_list(request)
+  list_id = utils.get_default_list_from_request(request)
   #TODO change these to not be hardcoded indices
   biennium = row[0]
   bill_id = row[1]

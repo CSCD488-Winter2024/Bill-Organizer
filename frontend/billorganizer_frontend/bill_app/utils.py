@@ -65,8 +65,9 @@ def mark_bill(list_id:str,biennium:str,bill_id:str):
     """
     # mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
     with Cursor() as cur:
-        sql = "INSERT INTO marks (list, biennium, bill) VALUES ('?', '?','?')"
-        mark_id = cur.execute(sql,[list_id,biennium,bill_id])
+        print("list_id: ",list_id," biennium: ",biennium," bill_id: ",bill_id)
+        sql = "INSERT INTO marks (list, biennium, bill_id) VALUES ('{}','{}','{}')".format(list_id,biennium,bill_id)
+        mark_id = cur.execute(sql)
         return mark_id
     
 def Create_list(user:User,list_name = 'default'):
@@ -110,10 +111,11 @@ def export_query(query:str,query_vars:list) -> str:
     relative_path = relative_path.split('/static')[1]
     return relative_path
 
-def get_default_list(request):
+def get_default_list_from_request(request):
     if not request.user.is_authenticated:
-      #user is not logged in
-      return redirect('/accounts/login/')
+    #   #user is not logged in
+    #   return redirect('/accounts/login/')
+        raise Exception("user is not logged in.")
     #user = request.user #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
     user = get_user(request)
     #if theres no default list then make one
