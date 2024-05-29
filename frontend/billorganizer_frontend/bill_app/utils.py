@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Bills, Marks, Lists
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user
 
 import sys
 import os
@@ -64,8 +65,8 @@ def mark_bill(list_id:str,biennium:str,bill_id:str):
     """
     # mark = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
     with Cursor() as cur:
-        sql = "INSERT INTO marks (list, biennium, bill) VALUES ('?', '?','?') RETURNING id;"
-        mark_id = cur.execute(sql,list_id,biennium,bill_id)
+        sql = "INSERT INTO marks (list, biennium, bill) VALUES ('?', '?','?')"
+        mark_id = cur.execute(sql,[list_id,biennium,bill_id])
         return mark_id
     
 def Create_list(user:User,list_name = 'default'):
@@ -117,12 +118,12 @@ def get_default_list(request):
     user = get_user(request)
     #if theres no default list then make one
     list_id  = None
-    if not utils.get_lists_for_user(user):
+    if not get_lists_for_user(user):
       list_id = 1
-      list_id = utils.Create_list(user=user)
+      list_id = Create_list(user=user)
       list_id = 2
 
-    mylists = utils.get_lists_for_user(user)
+    mylists = get_lists_for_user(user)
     #arbitrarily picking the first one for now #TODO change this to grab "default" or another requested list name
     list = mylists[0]
     #grab id (by index not key unfortunately)

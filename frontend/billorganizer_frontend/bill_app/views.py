@@ -222,10 +222,10 @@ def bill_button(request):
   row = request.GET.get("row")
   # print(i)
 
-  # list_id = utils.get_default_list(request)
-  # #TODO change these to not be hardcoded indices
-  # biennium = row[0]
-  # bill_id = row[1]
-  # utils.mark_bill(list_id,biennium,bill_id)
+  list_id = utils.get_default_list(request)
+  #TODO change these to not be hardcoded indices
+  biennium = row[0]
+  bill_id = row[1]
+  utils.mark_bill(list_id,biennium,bill_id)
 
   return JsonResponse({"row is:": row})
