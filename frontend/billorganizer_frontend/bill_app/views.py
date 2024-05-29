@@ -79,16 +79,16 @@ def SearchResultsView(request):
       OR column2 LIKE '%word1%'
       OR column3 LIKE '%word1%'
       """
-      #TODO make this not a security vulnerability
-      sql = "SELECT * FROM bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id WHERE " + " LIKE '%{}%' OR ".format(query).join([ 'bills.'+f.name for f in Bills._meta.fields + Bills._meta.many_to_many ] + [ 'sponsors.'+f.name for f in Sponsors._meta.fields + Sponsors._meta.many_to_many ])
-      #sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '?' OR ".join(["'?'"])
-      #make a link to get bills as excel
-      filepath = utils.export_query(sql)#,*[])
+      sql = "SELECT * FROM bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id WHERE " + " LIKE '%?%' OR ".join([ 'bills.'+f.name for f in Bills._meta.fields + Bills._meta.many_to_many ] + [ 'sponsors.'+f.name for f in Sponsors._meta.fields + Sponsors._meta.many_to_many ])
+      num_columns = len([ 'bills.'+f.name for f in Bills._meta.fields + Bills._meta.many_to_many ] + [ 'sponsors.'+f.name for f in Sponsors._meta.fields + Sponsors._meta.many_to_many ]) - 2 #subtract 2 because of joined columns
+      query_array = [query]*num_columns #duplicate it for each question mark (for each column)
+
+      #get bills as csv and link to file.
+      filepath = utils.export_query(query=sql,query_vars = query_array)
       http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
-      
-      cur.execute(sql)
-      
+      #get bills as text and display
+      cur.execute(sql,data=query_array)
       http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
     
     #process the html
