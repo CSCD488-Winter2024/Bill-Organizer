@@ -7,6 +7,8 @@ tempdir = './frontend/billorganizer_frontend/bill_app/static/tmp/'
 os.makedirs(os.path.dirname(tempdir), exist_ok=True)
 tempfile.tempdir = tempdir
 
+tempfile.tempdir = './frontend/frontend/bill_app/static/tmp/'
+
 
 # Operations allowed when processing queries
 class Ops(enum.Enum):
@@ -41,12 +43,12 @@ with cfg.Cursor(dictionary=True) as cur:
             desc[f'{table}.{i[0]}'] = table
 
 
-
-
-def export(list_id: str, query = None, query_vars = tuple()) -> str:
+def export(list_id: str, query: str = None, query_vars: tuple = tuple()) -> str:
     """
     Dumps the contents of the bills table into a csv-formatted file, and returns the file name.
     :param list_id: the uuid of the list to export. if NONE, export all bills.
+    :param query: a custom sql statement to execute.
+    :param query_vars: a tuple of variables to pass to the sql statement to execute. Ignored if query is None.
     :return str: The name of the file.
     """
     with cfg.Cursor() as cur:
@@ -64,7 +66,7 @@ def export(list_id: str, query = None, query_vars = tuple()) -> str:
                         where marks.list = '?'
                 """, tuple(list_id))
         else:
-            cur.execute(query,data=query_vars)
+            cur.execute(query, query_vars)
 
         # csv.writer requires a file-like object, so we create a temporary file to hold the csv data
         with tempfile.NamedTemporaryFile(mode='w+', delete=False, suffix='.csv') as file:
