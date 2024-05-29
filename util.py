@@ -2,8 +2,10 @@ import cfg
 import tempfile
 import csv
 import enum
-
-tempfile.tempdir = './frontend/billorganizer_frontend/bill_app/static/tmp/'
+import os
+tempdir = './frontend/billorganizer_frontend/bill_app/static/tmp/'
+os.makedirs(os.path.dirname(tempdir), exist_ok=True)
+tempfile.tempdir = tempdir
 
 
 # Operations allowed when processing queries
