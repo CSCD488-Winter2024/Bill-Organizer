@@ -108,3 +108,23 @@ def export_query(query:str,query_vars:list) -> str:
     #remove the extra /static since django adds one.
     relative_path = relative_path.split('/static')[1]
     return relative_path
+
+def get_default_list(request):
+    if not request.user.is_authenticated:
+      #user is not logged in
+      return redirect('/accounts/login/')
+    #user = request.user #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
+    user = get_user(request)
+    #if theres no default list then make one
+    list_id  = None
+    if not utils.get_lists_for_user(user):
+      list_id = 1
+      list_id = utils.Create_list(user=user)
+      list_id = 2
+
+    mylists = utils.get_lists_for_user(user)
+    #arbitrarily picking the first one for now #TODO change this to grab "default" or another requested list name
+    list = mylists[0]
+    #grab id (by index not key unfortunately)
+    list_id = list[0] 
+    return list_id

@@ -1,27 +1,13 @@
+var rows = []
 function setup(){ 
-    var rows = JSON.parse("{{rows|escapejs}}"); 
-    var rowheads = []
-    for (var i = 0; i < rows.length; i++) {
-      rowheads.push("rowhead"+i)
-    } 
-    for(var row in rowheads){ 
-      
-    } 
+    rows = JSON.parse("{{js_rows|escapejs}}"); //todo why does this break???
+    console.log(rows)
   }
-  setup()
-//   const bill_button = async (i) => {
-//     //pass i to django for row index
-//   const response = await axios.get('/request', { 
-//       params: { 
-//           row_index: i 
-//       } 
-//   });
-//   console.log(response.data);
-//   };
+setup()
 async function bill_button(i) {
     const response = await axios.get('/billbutton', { 
             params: { 
-                row_index: i 
+                row: JSON.stringify(rows[i])
             } 
         });
         console.log(response.data);

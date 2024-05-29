@@ -9,6 +9,9 @@ from django.template import loader
 from django.template import Template
 from django.template import Context
 from django.contrib.auth import get_user
+
+from datetime import date, datetime
+
 # from django_unicorn.
 from json import dumps 
 
@@ -183,6 +186,12 @@ def mybills(request):
   return HttpResponse(http)
 
 
+def json_serial(obj):#temp function
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
 def bill_add(request): # see https://www.django-unicorn.com/docs/components/
   # Use the cursor to grab bills in sequence
   with Cursor() as cur:
@@ -200,12 +209,20 @@ def bill_add(request): # see https://www.django-unicorn.com/docs/components/
     cur.execute(sql)
     rows = cur.fetchall()
     rows = [list(row) for row in rows]
-    #rows = dumps(rows,default=str)
-    context = {"rows": rows}
+    
+    js_rows = dumps(rows,default=json_serial)
+    context = {"rows": rows,"js_rows" :js_rows}
     return render(request, "unicorn/bill_add.html", context=context)
     # template = loader.get_template('master.html')
     #   return HttpResponse(template.render())
     # return loader.get_template("unicorn/bill_add.html").render() #, context=context)
 def bill_button(request):
-  print(request.GET.get("row_index"))
-  return JsonResponse({"test_confirmed": True})
+  row = request.GET.get("row")
+  # print(i)
+
+  # list_id = utils.get_default_list(request)
+
+
+  # utils.mark_bill(li)
+
+  return JsonResponse({"row is:": row})
