@@ -1,9 +1,9 @@
-var rows = []
 function setup(){ 
-    rows = JSON.parse("{{js_rows|escapejs}}"); //todo why does this break???
-    console.log(rows)
+    // rows = JSON.parse(); //todo why does this break???
+    // rows = "{{rows|safe}}";
+    console.log(rows[0]);
   }
-setup()
+setup();
 async function bill_button(i) {
     const response = await axios.get('/billbutton', { 
             params: { 

@@ -5,6 +5,9 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% load static %}
+<script type="text/javascript">
+    var rows  = {{js_rows|safe}};
+</script>
 
 <!-- gets axios for communicating with python -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

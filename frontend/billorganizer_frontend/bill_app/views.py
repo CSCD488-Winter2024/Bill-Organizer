@@ -189,6 +189,7 @@ def mybills(request):
 def json_serial(obj):#temp function
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (datetime, date)):
+        
         return obj.isoformat()
     raise TypeError ("Type %s not serializable" % type(obj))
 
@@ -211,6 +212,7 @@ def bill_add(request): # see https://www.django-unicorn.com/docs/components/
     rows = [list(row) for row in rows]
     
     js_rows = dumps(rows,default=json_serial)
+    print(js_rows[:150]+"\n\n")
     context = {"rows": rows,"js_rows" :js_rows}
     return render(request, "unicorn/bill_add.html", context=context)
     # template = loader.get_template('master.html')
@@ -221,8 +223,9 @@ def bill_button(request):
   # print(i)
 
   # list_id = utils.get_default_list(request)
-
-
-  # utils.mark_bill(li)
+  # #TODO change these to not be hardcoded indices
+  # biennium = row[0]
+  # bill_id = row[1]
+  # utils.mark_bill(list_id,biennium,bill_id)
 
   return JsonResponse({"row is:": row})
