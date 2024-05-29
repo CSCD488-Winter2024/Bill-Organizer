@@ -9,6 +9,7 @@ from django.template import Template
 from django.template import Context
 from django.contrib.auth import get_user
 # from django_unicorn.
+from json import dumps 
 
 import sys
 import os
@@ -198,7 +199,7 @@ def bill_add(request): # see https://www.django-unicorn.com/docs/components/
     cur.execute(sql)
     rows = cur.fetchall()
     rows = [list(row) for row in rows]
-
+    rows = dumps(rows)
     context = {"rows": rows}
     return render(request, "unicorn/bill_add.html", context=context)
     # template = loader.get_template('master.html')
