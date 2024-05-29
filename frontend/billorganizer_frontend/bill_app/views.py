@@ -175,7 +175,10 @@ def mybills(request):
     http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
 
-    sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
+    sql = "SELECT * FROM billorg.marks \
+       JOIN bills ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
+       JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
+       WHERE list = '{}'".format(list_id)
     cur.execute(sql)
 
     http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
