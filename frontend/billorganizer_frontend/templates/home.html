@@ -2,7 +2,7 @@
 {% block title %}Homepage{% endblock %}
 
 {% block content %}
-
+<br>
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
 <form action="{% url 'logout' %}" method="post">
@@ -13,8 +13,8 @@ Hi {{ user.username }}!
 <!-- <p>You are not logged in</p> -->
 <a href="{% url 'login' %}">Log In</a>
 {% endif %}
-
-
+<br><br>
+<h4>Bill Search:</h4>
 <form action="{% url 'search_results' %}" method="get">
   <input name="q" type="text" placeholder="Search...">
 </form>
