@@ -4,6 +4,7 @@
 
 Bill Organizer is a Python 3 program that pulls data from the Washington State Legislature and shows it in a convenient, easy to understand format that allows tracking, writing notes, and receiving notifications on bill updates. 
 
+## Functionality
 - View an up to date list of bills
 - Create lists of bills to keep yourself organized
 - Filter and sort bills using a wide range of options
@@ -13,18 +14,34 @@ Bill Organizer is a Python 3 program that pulls data from the Washington State L
 ## Installation
 
 ### Prerequisites
-- Docker
-- Docker Compose
-- Any web browser
+<!-- - Docker
+- Docker Compose -->
+<!-- - Any web browser -->
+- A preconfigured MariaDB instance
+- python 3.10+
 
 ### Installation Steps
 1. `git clone https://github.com/CSCD488-Winter2024/bill-organizer`
 2. `cd bill organizer` 
-3. `echo "DB_STORAGE_DIR: /put/storage/directory/here" > .env`
-3. `docker compose up -d`
-4. Open `http://localhost:53982` in your web browser.
+3. Install required files by running:
+`./codespace-setup-commands.sh`  (for ubuntu)
+4. Create the credentials used to connect to your database with: 
+>mkdir -p ~/.config/bill-organizer &&  
+echo 'db_user: \<your user\>  
+db_password: \<your password\>  
+db_database: \<your database name\>  
+db_host: \<your database url\>  
+db_port: \<your database port\>  
+base_url: https://localhost/  
+create_db: true  
+name: '\<your organization name to access WA legislature API\>' > ~/.config/bill-organizer/cfg.yml  
+<!-- 5. populate your database with users stuff? by calling `python manage.py ???` //todo -->
+5. run the server by calling `python manage.py runserver`
 
-## Functionality
+<!-- 3. `echo "DB_STORAGE_DIR: /put/storage/directory/here" > .env`
+3. `docker compose up -d`
+4. Open `http://localhost:53982` in your web browser. -->
+
 
 ## Known Problems
 This project is in the very early stages of development and very few features are implemented yet.
