@@ -68,6 +68,7 @@ def SearchResultsView(request):
     http = ''
     http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
     http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
+    http += '{% load static %}'
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       query = request.GET.get("q")
@@ -80,9 +81,9 @@ def SearchResultsView(request):
       """
       #TODO make this not a security vulnerability
       sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
-      sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '?' OR ".join(["'?'"])
+      #sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '?' OR ".join(["'?'"])
       #make a link to get bills as excel
-      filepath = utils.export_query(sql,*[])
+      filepath = utils.export_query(sql)#,*[])
       http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       
