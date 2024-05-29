@@ -7,8 +7,6 @@ tempdir = './frontend/billorganizer_frontend/bill_app/static/tmp/'
 os.makedirs(os.path.dirname(tempdir), exist_ok=True)
 tempfile.tempdir = tempdir
 
-tempfile.tempdir = './frontend/frontend/bill_app/static/tmp/'
-
 
 # Operations allowed when processing queries
 class Ops(enum.Enum):
