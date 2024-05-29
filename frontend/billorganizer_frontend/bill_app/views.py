@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.views.generic import TemplateView, ListView
 from .models import Bills, Marks, Lists, Sponsors
 from . import utils
@@ -8,6 +9,12 @@ from django.template import loader
 from django.template import Template
 from django.template import Context
 from django.contrib.auth import get_user
+import json
+
+from datetime import date, datetime
+
+# from django_unicorn.
+from json import dumps 
 
 import sys
 import os
@@ -65,8 +72,9 @@ def allbills(request):
     return HttpResponse(http)
 
 def SearchResultsView(request):
-    http = ''
-    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    http = '{% load unicorn %}{% csrf_token %}'
+    http += "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
+    # http = '{% extends "master.html" %}'
     http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
     http += '{% load static %}'
     # Use the cursor to grab bills in sequence
@@ -167,7 +175,10 @@ def mybills(request):
     http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
 
-    sql = "SELECT * FROM billorg.marks WHERE list = '{}' ".format(list_id)
+    sql = "SELECT * FROM billorg.marks \
+       JOIN bills ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
+       JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
+       WHERE list = '{}'".format(list_id)
     cur.execute(sql)
 
     http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
@@ -177,3 +188,49 @@ def mybills(request):
   http = t.render(Context({}))
 
   return HttpResponse(http)
+
+
+def json_serial(obj):#temp function
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime, date)):
+        
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
+def bill_add(request): # see https://www.django-unicorn.com/docs/components/
+  # Use the cursor to grab bills in sequence
+  with Cursor() as cur:
+    # query = self.request.GET.get("q")
+    # if query == None:
+    #   query = '%%'
+    #TODO make this not a security vulnerability
+    # sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
+    sql = "SELECT * FROM billorg.bills"
+    #make a link to get bills as excel
+    # filepath = utils.export_query(sql)
+    # html +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
+
+    
+    cur.execute(sql)
+    rows = cur.fetchall()
+    rows = [list(row) for row in rows]
+    
+    js_rows = dumps(rows,default=json_serial)
+    # print(js_rows[:150]+"\n\n")
+    context = {"rows": rows,"js_rows" :js_rows}
+    return render(request, "unicorn/bill_add.html", context=context)
+    # template = loader.get_template('master.html')
+    #   return HttpResponse(template.render())
+    # return loader.get_template("unicorn/bill_add.html").render() #, context=context)
+def bill_button(request):
+  row = request.GET.get("row")
+  row = json.loads(row)
+  print("row is:", row)
+
+  list_id = utils.get_default_list_from_request(request)
+  #TODO change these to not be hardcoded indices
+  biennium = row[0]
+  bill_id = row[1]
+  utils.mark_bill(list_id,biennium,bill_id)
+
+  return JsonResponse({"row is:": row})
