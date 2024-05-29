@@ -10,12 +10,26 @@ initializes various bits and sets up needed variables
 """
 
 from pathlib import Path
+from typing import Any
 import os
 import re
 
 import mariadb
 import yaml
 
+
+def log(val: str, end='\n') -> None:
+    if True:
+        print(val, end=end)
+
+
+def hlog(val: str, name: str = None, end='\n') -> None:
+    if name is not None:
+        val = f"{name}: {val}"
+    log(val, end=end)
+
+
+log('Reading config...', '')
 # Figure out where config files are
 if 'BILL_ORGANIZER_HOME' in os.environ:  # If user set a homedir for us via env, use it
     cfg_dir = Path(os.environ.get('BILL_ORGANIZER_HOME'))
@@ -33,8 +47,8 @@ cfg_file: Path = Path(cfg_dir, 'cfg.yml')
 if not cfg_file.is_file():
     raise FileNotFoundError(f'main configuration file not found: "{cfg_file}"')
 try:
-    with open(cfg_file, 'r') as _file:
-        cfg_data: dict = yaml.safe_load(_file)
+    with open(cfg_file, 'r') as file:
+        cfg_data: dict = yaml.safe_load(file)
 except Exception as e:
     e.add_note(f'could not read config file "{cfg_file.absolute()}" correctly')
     raise e
@@ -65,6 +79,23 @@ if not re.match(r'^https?://.+/$', base_url):
     raise ValueError(f'base_url "{base_url}" is not formatted correctly '
                      f'- does is begin with "http://" or "https://", and end with a "/"?')
 
+log('done')
+
+
+def read_handler_data(name: str) -> dict:
+    name = Path(cfg_dir, f'{name}.yml')
+    if not os.path.isfile(name):
+        return {}
+    with open(name, 'r') as file:
+        return yaml.safe_load(file)
+
+
+def write_handler_data(name: str, data: dict) -> None:
+    with open(Path(cfg_dir, f'{name}.yml'), 'w') as file:
+        yaml.dump(data, file)
+
+
+log('Connecting to database...', '')
 # Connect to the database
 try:
     pool: mariadb.ConnectionPool = mariadb.ConnectionPool(
@@ -106,6 +137,9 @@ class Cursor:
         self.conn.close()
 
 
+log('done')
+log('verifying database configuration...', '')
+
 with Cursor() as cur:
     cur.execute("show tables")
     # Determine if any tables are missing
@@ -114,16 +148,19 @@ with Cursor() as cur:
     missing_tables = [i for i in required_tables if i not in found_tables]
     if missing_tables:
         if cfg_data['create_db']:  # Create db from sql file if create_db is true
-            with open(Path('create-db.sql'), 'r') as _file:
+            with open(Path('create-db.sql'), 'r') as file:
                 # cur.execute() only supports one sql statement at a time, so we need to split the file into an array.
                 # We use strip() to get rid of tailing newlines that cause entries to appear in the list consisting of
                 # only a newline.
-                for _i in _file.read().strip().split(';'):
+                for _i in file.read().strip().split(';'):
                     if not _i: continue  # skip any empty entries in the list
                     cur.execute(_i)
         else:  # Else just error out
             raise Exception(f'Missing tables in database: "{", ".join(missing_tables)}"')
 
+log('done')
 
 # Cleanup
-del cfg_data, cfg_file, cfg_dir, missing_tables, required_tables, found_tables, cur, pool, fetch_var
+del cfg_data, cfg_file, missing_tables, required_tables, found_tables, cur, pool, fetch_var
+
+log('configuration complete, entering main loop')
