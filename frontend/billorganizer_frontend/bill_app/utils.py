@@ -73,11 +73,11 @@ def export_list(list_id:str) -> str:
     relative_path = relative_path.split('/static')[1]
     return relative_path
 
-def export_query(query:str) -> str:
+def export_query(query:str,query_vars:list) -> str:
     """
     export the results of a query to csv 
     """
-    fullpath = backend_utils.export(list_id=None,query=query)
+    fullpath = backend_utils.export(list_id=None,query=query,query_vars=query_vars)
     common_path = os.path.commonpath((fullpath,current))
     relative_path = fullpath.split(common_path)[1]#format it as /static/tmp/file.csv
     #remove the extra /static since django adds one.
