@@ -4,14 +4,14 @@
 {% load bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+{% load static %}
 
-
-{% unicorn 'bill_add' rows=rows%}
+<!-- gets axios for communicating with python -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <link href="/static/css/contents.css" rel="stylesheet" type="text/css">
-
+<script src="/static/js/bill_button.js"></script>
 
 <div>
-    
 
     <table>
         {% if rows %}
@@ -21,7 +21,7 @@
             <!-- <button unicorn:click="add_bill(row)">Add</button> -->
             
             <tr>
-                <h id='rowhead{{ forloop.counter }}'></h> 
+                <td><button onclick="bill_button( {{ forloop.counter }} )">Add to bill list</button> </td>
                 {% for datum in row %}
 
                 <td>{{ datum }}</td>
@@ -35,19 +35,3 @@
         {% endif %}
     </table>
 </div>
-<script> 
-    function opposite(){ 
-      var rows = JSON.parse("{{rows|escapejs}}"); 
-      var rowheads = []
-      for (var i = 0; i < rows.length; i++) {
-        rowheads.push("rowhead"+i)
-      }
-      var flag = 1; 
-      for(var row in rowheads){ 
-        
-      } 
-      if(flag){ 
-        result.innerHTML = "No results found" 
-      } 
-    } 
-  </script>

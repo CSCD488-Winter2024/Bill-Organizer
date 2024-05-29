@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from django.views.generic import TemplateView, ListView
 from .models import Bills, Marks, Lists, Sponsors
 from . import utils
@@ -199,9 +200,12 @@ def bill_add(request): # see https://www.django-unicorn.com/docs/components/
     cur.execute(sql)
     rows = cur.fetchall()
     rows = [list(row) for row in rows]
-    rows = dumps(rows)
+    #rows = dumps(rows,default=str)
     context = {"rows": rows}
     return render(request, "unicorn/bill_add.html", context=context)
     # template = loader.get_template('master.html')
     #   return HttpResponse(template.render())
     # return loader.get_template("unicorn/bill_add.html").render() #, context=context)
+def bill_button(request):
+  print(request.GET.get("row_index"))
+  return JsonResponse({"test_confirmed": True})
