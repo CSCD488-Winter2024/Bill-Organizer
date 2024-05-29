@@ -1,9 +1,7 @@
-from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, ListView
-from .models import Bills, Marks, Lists, Sponsors
+from django.shortcuts import redirect
+from .models import Bills, Sponsors
 from . import utils
 from django.http import HttpResponse
-from django.db.models import Q 
 from django.template import loader
 from django.template import Template
 from django.template import Context
@@ -27,7 +25,6 @@ sys.path.append(project_dir)
 # now we can import the module in the parent
 # directory.
 from cfg import Cursor
-import util as backend_utils
 from tabulate import tabulate
 
 
@@ -84,7 +81,7 @@ def SearchResultsView(request):
       query_array = [query]*num_columns #duplicate it for each question mark (for each column)
 
       #get bills as csv and link to file.
-      filepath = utils.export_query(query=sql,query_vars = query_array)
+      filepath = utils.export_query(query=sql, query_vars = query_array)
       http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       #get bills as text and display
