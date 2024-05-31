@@ -134,43 +134,11 @@ def mybills(request):
     query = request.GET.get("q")
     if query == None:
       query = '%%'
-    """
-    select biennium and billid from marks where uuid == <my uuid>
 
-
-    -- create a list
-    INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
-
-      list = List.objects.create(author=user,name="default")
-
-    -- add bills to a list
-    INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
-      marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
-
-    -- get all bills in a list
-    SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
-    """
     if not request.user.is_authenticated:
-      #user is not logged in
+      #user is not logged in, redirect to login page
       return redirect('/accounts/login/')
-    #user = request.user #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
-    user = get_user(request)
-    #if theres no default list then make one
-    list_id  = None
-    if not utils.get_lists_for_user(user):
-      list_id = 1
-      list_id = utils.Create_list(user=user)
-      list_id = 2
-
-    mylists = utils.get_lists_for_user(user)
-    #arbitrarily picking the first one for now #TODO change this to grab "default" or another requested list name
-    list = mylists[0]
-    #grab id (by index not key unfortunately)
-    list_id = list[0] 
-
-
-
-
+    list_id = utils.get_default_list_from_request(request)
 
     sql = "SELECT * FROM billorg.marks \
        JOIN bills ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
@@ -182,7 +150,6 @@ def mybills(request):
     http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
     
     cur.execute(sql)
-
     http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
   
   #process the html
