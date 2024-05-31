@@ -170,15 +170,17 @@ def mybills(request):
 
 
 
-    #make a link to get list bills as excel
-    filepath = utils.export_list(list_id)
-    http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
 
     sql = "SELECT * FROM billorg.marks \
        JOIN bills ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
        JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
        WHERE list = '{}'".format(list_id)
+    
+    filepath = utils.export_query(sql,None)
+    #make a link to get list bills as excel
+    http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
+    
     cur.execute(sql)
 
     http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
