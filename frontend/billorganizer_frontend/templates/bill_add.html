@@ -19,7 +19,7 @@
         <tbody>
             {% for row in rows %}            
             <tr>
-                <td><button onclick="bill_button( {{ forloop.counter0 }} )">Add to bill list</button> </td>
+                <td><button class="button-18" role="button" onclick="bill_button( {{ forloop.counter0 }} )">Add</button> </td>
                 {% for datum in row %}
 
                 <td>{{ datum }}</td>
