@@ -45,16 +45,8 @@ def allbills(request):
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       #make a link to get list bills as excel
-      filepath = utils.export_list(None)
-
-      cur.execute("select * from bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id")
-
-      rows = cur.fetchall()
-      rows = [list(row) for row in rows]
-      
-      context = {"rows": rows, "link" : filepath}
-      template = loader.get_template('bills_view.html')
-      return HttpResponse(template.render(context=context))
+      sql = "SELECT * FROM bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id"
+      return HttpResponse(utils.render_query(request,query=sql,query_vars = None))
 
 def SearchResultsView(request):
     # Use the cursor to grab bills in sequence
@@ -71,17 +63,10 @@ def SearchResultsView(request):
       num_columns = len([ 'bills.'+f.name for f in Bills._meta.fields + Bills._meta.many_to_many ] + [ 'sponsors.'+f.name for f in Sponsors._meta.fields + Sponsors._meta.many_to_many ]) - 2 #subtract 2 because of joined columns
       query_array = [query]*num_columns #duplicate it for each question mark (for each column)
 
-      #get bills as csv and link to file.
-      filepath = utils.export_query(query=sql,query_vars = query_array)
+      
 
       #get bills as text and display
-      cur.execute(sql,data=query_array)
-      rows = cur.fetchall()
-      rows = [list(row) for row in rows]
-      
-      context = {"rows": rows, "link" : filepath}
-      template = loader.get_template('bills_view.html')
-      return HttpResponse(template.render(context=context))
+      return HttpResponse(utils.render_query(request,query=sql,query_vars = query_array))
 
 def mybills(request):
   http = ''
@@ -104,18 +89,7 @@ def mybills(request):
        JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
        WHERE list = '{}'".format(list_id)
 
-    #get bills as csv and link to file.    
-    filepath = utils.export_query(sql,None)
-
-    cur.execute(sql)
-
-    rows = cur.fetchall()
-    rows = [list(row) for row in rows]
-    
-    context = {"rows": rows, "link" : filepath}
-    template = loader.get_template('bills_view.html')
-    return HttpResponse(template.render(context=context))
-
+    return HttpResponse(utils.render_query(request,query=sql,query_vars = None))
 
 
 
