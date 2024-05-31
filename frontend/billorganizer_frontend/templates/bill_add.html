@@ -1,5 +1,3 @@
-{% load unicorn %}
-{% unicorn_scripts %}
 {% csrf_token %}
 {% load bootstrap5 %}
 {% bootstrap_css %}
@@ -19,10 +17,7 @@
     <table>
         {% if rows %}
         <tbody>
-            {% for row in rows %}
-            <!-- <li>{{ row }}</li> -->
-            <!-- <button unicorn:click="add_bill(row)">Add</button> -->
-            
+            {% for row in rows %}            
             <tr>
                 <td><button onclick="bill_button( {{ forloop.counter0 }} )">Add to bill list</button> </td>
                 {% for datum in row %}
