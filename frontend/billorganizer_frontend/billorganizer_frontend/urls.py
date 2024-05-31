@@ -29,7 +29,6 @@ urlpatterns = [
     path('',views.index, name="homepage"),
     path('bills/',views.allbills, name="billpage"),
     path("search/", views.SearchResultsView, name="search_results"),
-    path("bootstrap/", views.bootstrap_example, name="bootstrap_example"),
     path("mybills/", views.mybills, name="my_bills"),
     path("billadd/", views.bill_add, name="bill_add"),
     path("billbutton/", views.bill_button, name="bill_button"),

@@ -11,8 +11,6 @@ from django.template import Context
 from django.contrib.auth import get_user
 import json
 
-
-
 # from django_unicorn.
 from json import dumps 
 
@@ -84,25 +82,6 @@ def SearchResultsView(request):
       context = {"rows": rows, "link" : filepath}
       template = loader.get_template('bills_view.html')
       return HttpResponse(template.render(context=context))
-
-# class SearchResultsView(ListView):
-#     model = Bills
-#     template_name = 'search_results.html'
-#     # queryset = bill.objects.filter(billname__icontains='2')
-#     q = ""
-#     #override the inherited method
-#     def get_queryset(self):
-#         query = self.request.GET.get("q")
-#         if query == None:
-#             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
-#         object_list = Bills.objects.raw("select * from billorg.bills where short_description like '%{}%'".format(query))
-#         return object_list
-    
-def bootstrap_example(request):
-  template = loader.get_template('master.html')
-  return HttpResponse(template.render())
-
-
 
 def mybills(request):
   http = ''
