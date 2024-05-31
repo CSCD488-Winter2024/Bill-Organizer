@@ -11,8 +11,6 @@ from django.template import Context
 from django.contrib.auth import get_user
 import json
 
-from datetime import date, datetime
-
 # from django_unicorn.
 from json import dumps 
 
@@ -44,39 +42,21 @@ def index(request):
   return HttpResponse(template.render())
 
 def allbills(request):
-    http = ''
-    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
-    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
-    http += '{% load static %}'
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       #make a link to get list bills as excel
       filepath = utils.export_list(None)
-      http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       cur.execute("select * from bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id")
 
-      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
-
-    # for row in cur.fetchall():
-    #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
-
-
-    # for b in bill.objects.all():
-    #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = b.billname,billdesc = b.text)
-    
-    #process the html
-    t = Template(http)
-    http = t.render(Context({}))
-
-    return HttpResponse(http)
+      rows = cur.fetchall()
+      rows = [list(row) for row in rows]
+      
+      context = {"rows": rows, "link" : filepath}
+      template = loader.get_template('bills_view.html')
+      return HttpResponse(template.render(context=context))
 
 def SearchResultsView(request):
-    http = '{% load unicorn %}{% csrf_token %}'
-    http += "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
-    # http = '{% extends "master.html" %}'
-    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
-    http += '{% load static %}'
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       query = request.GET.get("q")
@@ -93,36 +73,15 @@ def SearchResultsView(request):
 
       #get bills as csv and link to file.
       filepath = utils.export_query(query=sql,query_vars = query_array)
-      http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       #get bills as text and display
       cur.execute(sql,data=query_array)
-      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
-    
-    #process the html
-    t = Template(http)
-    http = t.render(Context({}))
-
-    return HttpResponse(http)
-
-# class SearchResultsView(ListView):
-#     model = Bills
-#     template_name = 'search_results.html'
-#     # queryset = bill.objects.filter(billname__icontains='2')
-#     q = ""
-#     #override the inherited method
-#     def get_queryset(self):
-#         query = self.request.GET.get("q")
-#         if query == None:
-#             query = '%%'#"select * from bill_app_bill where billname like '%%'" 
-#         object_list = Bills.objects.raw("select * from billorg.bills where short_description like '%{}%'".format(query))
-#         return object_list
-    
-def bootstrap_example(request):
-  template = loader.get_template('master.html')
-  return HttpResponse(template.render())
-
-
+      rows = cur.fetchall()
+      rows = [list(row) for row in rows]
+      
+      context = {"rows": rows, "link" : filepath}
+      template = loader.get_template('bills_view.html')
+      return HttpResponse(template.render(context=context))
 
 def mybills(request):
   http = ''
@@ -134,96 +93,46 @@ def mybills(request):
     query = request.GET.get("q")
     if query == None:
       query = '%%'
-    """
-    select biennium and billid from marks where uuid == <my uuid>
 
-
-    -- create a list
-    INSERT INTO lists (author, name) VALUES (12345, foobar) RETURNING uuid;
-
-      list = List.objects.create(author=user,name="default")
-
-    -- add bills to a list
-    INSERT INTO marks VALUES abcd-1234-efgh-5678 2023-24 SB-1234
-      marked_bill = Marks.objects.create(list=list,biennium=bill.biennium,bill=bill)
-
-    -- get all bills in a list
-    SELECT biennium, bill_id FROM marks WHERE uuid = abcd-1234-efgh-5678
-    """
     if not request.user.is_authenticated:
-      #user is not logged in
+      #user is not logged in, redirect to login page
       return redirect('/accounts/login/')
-    #user = request.user #pulled from https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-id-in-django 
-    user = get_user(request)
-    #if theres no default list then make one
-    list_id  = None
-    if not utils.get_lists_for_user(user):
-      list_id = 1
-      list_id = utils.Create_list(user=user)
-      list_id = 2
-
-    mylists = utils.get_lists_for_user(user)
-    #arbitrarily picking the first one for now #TODO change this to grab "default" or another requested list name
-    list = mylists[0]
-    #grab id (by index not key unfortunately)
-    list_id = list[0] 
-
-
-
-
+    list_id = utils.get_default_list_from_request(request)
 
     sql = "SELECT * FROM billorg.marks \
        JOIN bills ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
        JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
        WHERE list = '{}'".format(list_id)
-    
+
+    #get bills as csv and link to file.    
     filepath = utils.export_query(sql,None)
-    #make a link to get list bills as excel
-    http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
-    
+
     cur.execute(sql)
 
-    http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
-  
-  #process the html
-  t = Template(http)
-  http = t.render(Context({}))
+    rows = cur.fetchall()
+    rows = [list(row) for row in rows]
+    
+    context = {"rows": rows, "link" : filepath}
+    template = loader.get_template('bills_view.html')
+    return HttpResponse(template.render(context=context))
 
-  return HttpResponse(http)
 
 
-def json_serial(obj):#temp function
-    """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime, date)):
-        
-        return obj.isoformat()
-    raise TypeError ("Type %s not serializable" % type(obj))
 
 def bill_add(request): # see https://www.django-unicorn.com/docs/components/
   # Use the cursor to grab bills in sequence
   with Cursor() as cur:
-    # query = self.request.GET.get("q")
-    # if query == None:
-    #   query = '%%'
-    #TODO make this not a security vulnerability
-    # sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
     sql = "SELECT * FROM billorg.bills"
-    #make a link to get bills as excel
-    # filepath = utils.export_query(sql)
-    # html +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
-
     
     cur.execute(sql)
     rows = cur.fetchall()
     rows = [list(row) for row in rows]
     
-    js_rows = dumps(rows,default=json_serial)
-    # print(js_rows[:150]+"\n\n")
+    js_rows = dumps(rows, default = utils.json_serial)
+
     context = {"rows": rows,"js_rows" :js_rows}
     return render(request, "unicorn/bill_add.html", context=context)
-    # template = loader.get_template('master.html')
-    #   return HttpResponse(template.render())
-    # return loader.get_template("unicorn/bill_add.html").render() #, context=context)
+
 def bill_button(request):
   row = request.GET.get("row")
   row = json.loads(row)
