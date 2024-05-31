@@ -1,0 +1,31 @@
+{% load unicorn %}
+{% unicorn_scripts %}
+{% csrf_token %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load static %}
+
+
+<link href="/static/css/contents.css" rel="stylesheet" type="text/css">
+
+<div>
+    <a  href='{% get_static_prefix %}/{{ link }}' download> Download this list as CSV </a>
+    <table>
+        {% if rows %}
+        <tbody>
+            {% for row in rows %}            
+            <tr>
+                {% for datum in row %}
+
+                <td>{{ datum }}</td>
+                    
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% else %}
+        No bills found
+        {% endif %}
+    </table>
+</div>

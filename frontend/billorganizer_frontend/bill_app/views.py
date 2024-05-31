@@ -44,39 +44,21 @@ def index(request):
   return HttpResponse(template.render())
 
 def allbills(request):
-    http = ''
-    http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
-    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
-    http += '{% load static %}'
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       #make a link to get list bills as excel
       filepath = utils.export_list(None)
-      http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       cur.execute("select * from bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id")
 
-      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
-
-    # for row in cur.fetchall():
-    #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = row[1],billdesc = row[2])
-
-
-    # for b in bill.objects.all():
-    #     http += "billname: {billname} <br> billdescription: {billdesc}<br><br>".format(billname = b.billname,billdesc = b.text)
-    
-    #process the html
-    t = Template(http)
-    http = t.render(Context({}))
-
-    return HttpResponse(http)
+      rows = cur.fetchall()
+      rows = [list(row) for row in rows]
+      
+      context = {"rows": rows, "link" : filepath}
+      template = loader.get_template('bills_view.html')
+      return HttpResponse(template.render(context=context))
 
 def SearchResultsView(request):
-    http = '{% load unicorn %}{% csrf_token %}'
-    http += "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
-    # http = '{% extends "master.html" %}'
-    http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
-    http += '{% load static %}'
     # Use the cursor to grab bills in sequence
     with Cursor() as cur:
       query = request.GET.get("q")
@@ -93,17 +75,15 @@ def SearchResultsView(request):
 
       #get bills as csv and link to file.
       filepath = utils.export_query(query=sql,query_vars = query_array)
-      http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
 
       #get bills as text and display
       cur.execute(sql,data=query_array)
-      http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
-    
-    #process the html
-    t = Template(http)
-    http = t.render(Context({}))
-
-    return HttpResponse(http)
+      rows = cur.fetchall()
+      rows = [list(row) for row in rows]
+      
+      context = {"rows": rows, "link" : filepath}
+      template = loader.get_template('bills_view.html')
+      return HttpResponse(template.render(context=context))
 
 # class SearchResultsView(ListView):
 #     model = Bills
@@ -144,19 +124,18 @@ def mybills(request):
        JOIN bills ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
        JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
        WHERE list = '{}'".format(list_id)
-    
-    filepath = utils.export_query(sql,None)
-    #make a link to get list bills as excel
-    http +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
-    
-    cur.execute(sql)
-    http = http + tabulate(cur.fetchall(), tablefmt='html',)#TODO make this show column names
-  
-  #process the html
-  t = Template(http)
-  http = t.render(Context({}))
 
-  return HttpResponse(http)
+    #get bills as csv and link to file.    
+    filepath = utils.export_query(sql,None)
+
+    cur.execute(sql)
+
+    rows = cur.fetchall()
+    rows = [list(row) for row in rows]
+    
+    context = {"rows": rows, "link" : filepath}
+    template = loader.get_template('bills_view.html')
+    return HttpResponse(template.render(context=context))
 
 
 
