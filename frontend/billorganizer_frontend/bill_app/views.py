@@ -105,7 +105,7 @@ def bill_add(request): # see https://www.django-unicorn.com/docs/components/
     js_rows = dumps(rows, default = utils.json_serial)
 
     context = {"rows": rows,"js_rows" :js_rows}
-    return render(request, "unicorn/bill_add.html", context=context)
+    return render(request, "bill_add.html", context=context)
 
 def bill_button(request):
   row = request.GET.get("row")
