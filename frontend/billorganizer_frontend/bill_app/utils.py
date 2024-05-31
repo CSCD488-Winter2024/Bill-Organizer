@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Bills, Marks, Lists
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
+from datetime import date, datetime
 
 import sys
 import os
@@ -131,3 +132,10 @@ def get_default_list_from_request(request):
     #grab id (by index not key unfortunately)
     list_id = list[0] 
     return list_id
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime, date)):
+        
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))

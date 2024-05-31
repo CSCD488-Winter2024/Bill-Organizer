@@ -11,7 +11,7 @@ from django.template import Context
 from django.contrib.auth import get_user
 import json
 
-from datetime import date, datetime
+
 
 # from django_unicorn.
 from json import dumps 
@@ -192,38 +192,22 @@ def mybills(request):
   return HttpResponse(http)
 
 
-def json_serial(obj):#temp function
-    """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime, date)):
-        
-        return obj.isoformat()
-    raise TypeError ("Type %s not serializable" % type(obj))
+
 
 def bill_add(request): # see https://www.django-unicorn.com/docs/components/
   # Use the cursor to grab bills in sequence
   with Cursor() as cur:
-    # query = self.request.GET.get("q")
-    # if query == None:
-    #   query = '%%'
-    #TODO make this not a security vulnerability
-    # sql = "SELECT * FROM billorg.bills WHERE " + " LIKE '%{}%' OR ".format(query).join([ f.name for f in Bills._meta.fields + Bills._meta.many_to_many ])
     sql = "SELECT * FROM billorg.bills"
-    #make a link to get bills as excel
-    # filepath = utils.export_query(sql)
-    # html +="<a  href='{{% static '{}' %}}' download> Download this list as CSV </a>".format(filepath) #TODO figure out when to delete the file afterward
-
     
     cur.execute(sql)
     rows = cur.fetchall()
     rows = [list(row) for row in rows]
     
-    js_rows = dumps(rows,default=json_serial)
-    # print(js_rows[:150]+"\n\n")
+    js_rows = dumps(rows, default = utils.json_serial)
+
     context = {"rows": rows,"js_rows" :js_rows}
     return render(request, "unicorn/bill_add.html", context=context)
-    # template = loader.get_template('master.html')
-    #   return HttpResponse(template.render())
-    # return loader.get_template("unicorn/bill_add.html").render() #, context=context)
+
 def bill_button(request):
   row = request.GET.get("row")
   row = json.loads(row)
