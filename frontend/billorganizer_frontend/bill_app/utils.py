@@ -147,6 +147,8 @@ def render_query(request,query:str,query_vars:list):
         filepath = export_query(query,query_vars)
         cur.execute(query,query_vars)
         rows = cur.fetchall()
+        headers = cur.description
+        rows.insert(0, [i[0] for i in headers])
         rows = [list(row) for row in rows]
         context = {"rows": rows, "link" : filepath}
         return render(request, "bills_view.html", context=context)
