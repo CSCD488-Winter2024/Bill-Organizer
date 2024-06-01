@@ -60,18 +60,14 @@ def SearchResultsView(request):
       OR column3 LIKE '%word1%'
       """
       sql = None
+      query_vars = None
       try:
-        sql = backend_utils.search(query, author = get_user(request).id)
+        sql,query_vars = backend_utils.search(query, author = get_user(request).id)
       except Exception as e:
         return HttpResponse("Error: " + str(e))
-      # sql = "SELECT * FROM bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id WHERE " + " LIKE '%?%' OR ".join([ 'bills.'+f.name for f in Bills._meta.fields + Bills._meta.many_to_many ] + [ 'sponsors.'+f.name for f in Sponsors._meta.fields + Sponsors._meta.many_to_many ])
-      num_columns = len([ 'bills.'+f.name for f in Bills._meta.fields + Bills._meta.many_to_many ] + [ 'sponsors.'+f.name for f in Sponsors._meta.fields + Sponsors._meta.many_to_many ]) - 2 #subtract 2 because of joined columns
-      query_array = [query]*num_columns #duplicate it for each question mark (for each column)
-
-      
 
       #get bills as text and display
-      return HttpResponse(utils.render_query(request,query=sql,query_vars = query_array))
+      return HttpResponse(utils.render_query(request,query=sql,query_vars = query_vars)) #query_array))
 
 def mybills(request):
   http = ''
