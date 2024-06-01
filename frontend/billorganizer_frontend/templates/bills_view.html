@@ -1,3 +1,4 @@
+{% extends "master.html" %}
 {% load unicorn %}
 {% unicorn_scripts %}
 {% csrf_token %}
@@ -6,11 +7,13 @@
 {% bootstrap_javascript %}
 {% load static %}
 
+{% block title %}Bill List{% endblock %}
 
+{% block content %}
 <link href="/static/css/contents.css" rel="stylesheet" type="text/css">
 
-<div>
-    <a  href='{% get_static_prefix %}/{{ link }}' download> Download this list as CSV </a>
+<a  href='{% get_static_prefix %}/{{ link }}' download> Download this list as CSV </a>
+<div id="bill-table">
     <table>
         {% if rows %}
         <tbody>
@@ -29,3 +32,4 @@
         {% endif %}
     </table>
 </div>
+{% endblock %}

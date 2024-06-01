@@ -18,8 +18,13 @@ body {
 
 
 
-
-
+#bill-table {
+  margin: 0 auto;
+  /* width: 80%; */
+  border-collapse: collapse;
+  /* text-align: center; */
+  overflow: auto;
+}
 
 /* CSS */
 .button-18 {
