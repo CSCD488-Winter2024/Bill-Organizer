@@ -79,7 +79,25 @@ def export(list_id: str, query: str = None, query_vars: tuple = tuple()) -> str:
             return file.name
 
 
-def search(query: str, author: int = None, dictionary: bool = True) -> list[tuple | dict]:
+def search(query: str, author: int = None) -> str:
+    """
+    Translates a user's search query into a valid sql query. Note that while the generated statement is guaranteed
+    to be SQL-injection free, it is not guaranteed to be a valid sql statement, nor is it guaranteed to be error free.
+
+    For example, the query
+    ::
+        original_agency = "Senate" & sponsors.id = 3129
+
+    will be translated to
+    ::
+        select * from bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id where ( bills.original_agency = ?  and sponsors.id = ? )
+
+    :param query: The query to translate
+    :param author: The author id. Needed if the user is attempting to access restricted tables, such as the lists or
+    the marks table. If restricted tables are accessed and author is set to None, a UserWarning will be generated.
+    :raise: UserWarning exception if the user's query is malformed
+    :return: The SQL statement that represents the query
+    """
     stack = []
     # Parse the query line into a list of actions
     clr = lambda: stack.append(int(buf) if buf.isdigit() else buf)
@@ -217,9 +235,4 @@ def search(query: str, author: int = None, dictionary: bool = True) -> list[tupl
 
     statement += where
 
-    with cfg.Cursor(dictionary=dictionary) as cur:
-        try:
-            cur.execute(statement, tuple(args))
-            return cur.fetchall()
-        except Exception as e:
-            raise UserWarning(f'Could not properly parse query.')
+    return statement
