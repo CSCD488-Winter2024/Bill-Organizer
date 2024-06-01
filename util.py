@@ -79,7 +79,7 @@ def export(list_id: str, query: str = None, query_vars: tuple = tuple()) -> str:
             return file.name
 
 
-def search(query: str, author: int = None) -> str:
+def search(query: str, author: int = None) -> tuple[str, list]:
     """
     Translates a user's search query into a valid sql query. Note that while the generated statement is guaranteed
     to be SQL-injection free, it is not guaranteed to be a valid sql statement, nor is it guaranteed to be error free.
@@ -92,11 +92,15 @@ def search(query: str, author: int = None) -> str:
     ::
         select * from bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id where ( bills.original_agency = ?  and sponsors.id = ? )
 
+    with the arguments list
+    ::
+        ['Senate', 3129]
+
     :param query: The query to translate
     :param author: The author id. Needed if the user is attempting to access restricted tables, such as the lists or
     the marks table. If restricted tables are accessed and author is set to None, a UserWarning will be generated.
     :raise: UserWarning exception if the user's query is malformed
-    :return: The SQL statement that represents the query
+    :return: The SQL statement that represents the query, as well as a list of any arguments that need to be passed with it.
     """
     stack = []
     # Parse the query line into a list of actions
@@ -235,4 +239,4 @@ def search(query: str, author: int = None) -> str:
 
     statement += where
 
-    return statement
+    return statement, args
