@@ -86,7 +86,7 @@ def search(query: str, author: int = None) -> tuple[str, list]:
 
     For example, the query
     ::
-        original_agency = "Senate" & sponsors.id = 3129
+        substitute_version = 1 & sponsors.id = 29108
 
     will be translated to
     ::
