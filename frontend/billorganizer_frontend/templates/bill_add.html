@@ -1,8 +1,14 @@
+{% extends "master.html" %}
 {% csrf_token %}
 {% load bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% load static %}
+
+
+{% block title %}Bill Add{% endblock %}
+
+{% block content %}
 <script type="text/javascript">
     var rows  = {{js_rows|safe}};
 </script>
@@ -33,3 +39,4 @@
         {% endif %}
     </table>
 </div>
+{% endblock %}

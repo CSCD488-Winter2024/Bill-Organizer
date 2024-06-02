@@ -46,7 +46,7 @@ def allbills(request):
     with Cursor() as cur:
       #make a link to get list bills as excel
       sql = "SELECT * FROM bills join sponsors on bills.biennium = sponsors.biennium and bills.sponsor_id = sponsors.id"
-      return HttpResponse(utils.render_query(request,query=sql,query_vars = None))
+      return HttpResponse(utils.render_query(request,query=sql,query_vars = None,use_buttons=True))
 
 def SearchResultsView(request):
     # Use the cursor to grab bills in sequence
@@ -67,7 +67,7 @@ def SearchResultsView(request):
         return HttpResponse("Error: " + str(e))
 
       #get bills as text and display
-      return HttpResponse(utils.render_query(request,query=sql,query_vars = query_vars)) #query_array))
+      return HttpResponse(utils.render_query(request,query=sql,query_vars = query_vars,use_buttons=True)) #query_array))
 
 def mybills(request):
   http = ''
@@ -90,29 +90,35 @@ def mybills(request):
        JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
        WHERE list = '{}'".format(list_id)
 
-    return HttpResponse(utils.render_query(request,query=sql,query_vars = None))
+    return HttpResponse(utils.render_query(request,query=sql,query_vars = None,use_buttons=False))
 
 
 
 def bill_add(request): # see https://www.django-unicorn.com/docs/components/
   # Use the cursor to grab bills in sequence
   with Cursor() as cur:
+    if not request.user.is_authenticated:
+      #user is not logged in, redirect to login page
+      return redirect('/accounts/login/')
     sql = "SELECT * FROM billorg.bills"
     
-    cur.execute(sql)
-    rows = cur.fetchall()
-    rows = [list(row) for row in rows]
+    return HttpResponse(utils.render_query(request,query=sql,query_vars = None,use_buttons=True))
+    # cur.execute(sql)
+    # rows = cur.fetchall()
+    # rows = [list(row) for row in rows]
     
-    js_rows = dumps(rows, default = utils.json_serial)
+    # js_rows = dumps(rows, default = utils.json_serial)
 
-    context = {"rows": rows,"js_rows" :js_rows}
-    return render(request, "bill_add.html", context=context)
+    # context = {"rows": rows,"js_rows" :js_rows}
+    # return render(request, "bill_add.html", context=context)
 
 def bill_button(request):
   row = request.GET.get("row")
   row = json.loads(row)
   print("row is:", row)
-
+  # if not request.user.is_authenticated: #TODO move this to javascript to make it actually work https://stackoverflow.com/a/30145534
+  #     #user is not logged in, redirect to login page
+  #     return redirect('/accounts/login/')
   list_id = utils.get_default_list_from_request(request)
   #TODO change these to not be hardcoded indices
   biennium = row[0]
