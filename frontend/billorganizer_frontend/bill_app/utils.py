@@ -3,7 +3,7 @@ from .models import Bills, Marks, Lists
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user
 from datetime import date, datetime
-
+from json import dumps 
 import sys
 import os
 
@@ -141,12 +141,23 @@ def json_serial(obj):
     raise TypeError ("Type %s not serializable" % type(obj))
 
 
-def render_query(request,query:str,query_vars:list):
+def render_query(request,query:str,query_vars:list,use_buttons=False):
+    headers = []
+    with Cursor(dictionary=True) as cur:
+        cur.execute(query,query_vars)
+        headers = cur.description
+
     with Cursor() as cur:
         #get bills as csv and link to file.
         filepath = export_query(query,query_vars)
         cur.execute(query,query_vars)
         rows = cur.fetchall()
+        rows.insert(0, [i[0] for i in headers])
         rows = [list(row) for row in rows]
         context = {"rows": rows, "link" : filepath}
-        return render(request, "bills_view.html", context=context)
+        if use_buttons:
+            js_rows = dumps(rows, default = json_serial) 
+            context["js_rows"] = js_rows
+            return render(request, "bill_add.html", context=context)
+        else:
+            return render(request, "bills_view.html", context=context)

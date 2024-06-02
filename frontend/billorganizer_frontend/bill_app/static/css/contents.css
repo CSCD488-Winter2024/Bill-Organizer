@@ -1,6 +1,10 @@
+table{
+  background-color: #202020;
+}
 table, th, td {
   border: 1px solid ;
   padding: 5px;
+  
 }
 tr:nth-child(even) {
   background-color: #5b6060;
@@ -18,8 +22,13 @@ body {
 
 
 
-
-
+#bill-table {
+  margin: 0 auto;
+  /* width: 80%; */
+  border-collapse: collapse;
+  /* text-align: center; */
+  overflow: auto;
+}
 
 /* CSS */
 .button-18 {
