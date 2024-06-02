@@ -1,6 +1,10 @@
+table{
+  background-color: #202020;
+}
 table, th, td {
   border: 1px solid ;
   padding: 5px;
+  
 }
 tr:nth-child(even) {
   background-color: #5b6060;
