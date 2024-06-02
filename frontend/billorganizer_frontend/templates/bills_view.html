@@ -15,8 +15,11 @@
 <a  href='{% get_static_prefix %}/{{ link }}' download> Download this list as CSV </a>
 <div id="bill-table">
     <table>
-        {% if rows %}
+        {% if rows and headers %}
         <tbody>
+            {% for header in headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
             {% for row in rows %}            
             <tr>
                 {% for datum in row %}

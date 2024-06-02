@@ -12,3 +12,11 @@ async function bill_button(i) {
         });
         console.log(response.data);
   }
+async function add_all() {
+    const response = await axios.get('/addall', { 
+            params: { 
+                rows: JSON.stringify(rows)
+            } 
+        });
+        console.log(response.data);
+  }
