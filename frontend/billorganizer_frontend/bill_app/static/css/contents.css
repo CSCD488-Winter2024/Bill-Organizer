@@ -27,7 +27,9 @@ body {
   /* width: 80%; */
   border-collapse: collapse;
   /* text-align: center; */
-  overflow: auto;
+  overflow: scroll;
+  overflow-y: scroll;
+  height: 40em;
 }
 
 /* CSS */
