@@ -146,15 +146,15 @@ def render_query(request,query:str,query_vars:list,use_buttons=False):
     with Cursor(dictionary=True) as cur:
         cur.execute(query,query_vars)
         headers = cur.description
+        headers = [i[0] for i in headers]
 
     with Cursor() as cur:
         #get bills as csv and link to file.
         filepath = export_query(query,query_vars)
         cur.execute(query,query_vars)
         rows = cur.fetchall()
-        rows.insert(0, [i[0] for i in headers])
         rows = [list(row) for row in rows]
-        context = {"rows": rows, "link" : filepath}
+        context = {"rows": rows, "link" : filepath, "headers": headers}
         if use_buttons:
             js_rows = dumps(rows, default = json_serial) 
             context["js_rows"] = js_rows

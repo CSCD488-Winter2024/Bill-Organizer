@@ -126,3 +126,18 @@ def bill_button(request):
   utils.mark_bill(list_id,biennium,bill_id)
 
   return JsonResponse({"row is:": row})
+def add_all_button(request):
+  rows = request.GET.get("rows")
+  rows = json.loads(rows)
+  print("rows are:", rows)
+  # if not request.user.is_authenticated: #TODO move this to javascript to make it actually work https://stackoverflow.com/a/30145534
+  #     #user is not logged in, redirect to login page
+  #     return redirect('/accounts/login/')
+  list_id = utils.get_default_list_from_request(request)
+  for row in rows:
+    #TODO change these to not be hardcoded indices
+    biennium = row[0]
+    bill_id = row[1]
+    utils.mark_bill(list_id,biennium,bill_id)
+
+  return JsonResponse({"rows are:": rows})
