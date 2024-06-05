@@ -136,7 +136,7 @@ async def get_bills(date: str) -> None:
             res(bill, 'SubstituteVersion'),
             res(bill, 'EngrossedVersion'),
             res(bill, 'OriginalAgency'),
-            res(bill, 'Active'),
+            True if res(bill, 'Active') == 'true' else False,
             str(tuple(i for i in ['State', 'Local'] if res(bill, f'{i}FiscalNote') == 'true')),
             res(bill, 'Appropriations'),
             str(tuple(i for i in ['Governor', 'BudgetCommittee', 'Department', 'Other'] if res(bill, f'RequestedBy{i}') == 'true')),
