@@ -20,6 +20,13 @@ body {
   font-family: sans-serif
 }
 
+.bg-less-black {
+  background-color: #202020;
+}
+.bg-washed-blue {
+  background-color: #00614b;
+}
+
 
 
 #bill-table {
@@ -60,6 +67,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
+  text-decoration:none;
 }
 
 .button-18:hover,
