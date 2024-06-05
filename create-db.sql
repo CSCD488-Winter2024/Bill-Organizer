@@ -77,16 +77,22 @@ create table if not exists marks
 
 create table if not exists notes
 (
-    id            uuid default uuid()                   not null
-        primary key,
     content       text                                  null,
     author        int(11)                               not null,
     creation_time timestamp default current_timestamp() not null,
     edit_time     timestamp default current_timestamp() not null on update current_timestamp(),
     biennium      varchar(255)                          not null,
     bill_id       varchar(255)                          not null,
+    primary key (author, biennium, bill_id),
     foreign key (author) references auth_user (id)
         on delete cascade,
     foreign key (biennium, bill_id) references bills(biennium, bill_id)
         on delete cascade
+);
+
+create table if not exists handler_status
+(
+    name     varchar(255) not null
+        primary key,
+    last_ran timestamp    null
 );
