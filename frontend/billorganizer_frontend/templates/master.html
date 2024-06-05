@@ -4,14 +4,15 @@
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 <html>
+  <link href="/static/css/contents.css" rel="stylesheet" type="text/css">
 <head>
   {% unicorn_scripts %}
   <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
   {% csrf_token %}
-<div class="container bg-white" >
-  <ul class="nav bg-info">
+<div class="container bg-less-black" >
+  <ul class="nav bg-washed-blue">
     <li class="nav-item">
       <a class="nav-link link-light" href="/">HOME</a>
     </li>

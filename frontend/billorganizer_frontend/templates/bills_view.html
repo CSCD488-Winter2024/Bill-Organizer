@@ -11,8 +11,9 @@
 
 {% block content %}
 <link href="/static/css/contents.css" rel="stylesheet" type="text/css">
-
-<a  href='{% get_static_prefix %}/{{ link }}' download> Download this list as CSV </a>
+<br>
+<a class="button-18"  href='{% get_static_prefix %}/{{ link }}' download> Download this list as CSV </a>
+<br>
 <div id="bill-table">
     <table>
         {% if rows and headers %}
