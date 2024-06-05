@@ -13,23 +13,11 @@ from pathlib import Path
 from typing import Any
 import os
 import re
+import logging
 
 import mariadb
 import yaml
 
-
-def log(val: str, end='\n') -> None:
-    if True:
-        print(val, end=end)
-
-
-def hlog(val: str, name: str = None, end='\n') -> None:
-    if name is not None:
-        val = f"{name}: {val}"
-    log(val, end=end)
-
-
-log('Reading config...', '')
 # Figure out where config files are
 if 'BILL_ORGANIZER_HOME' in os.environ:  # If user set a homedir for us via env, use it
     cfg_dir = Path(os.environ.get('BILL_ORGANIZER_HOME'))
@@ -57,15 +45,31 @@ except Exception as e:
 if not isinstance(cfg_data, dict):
     raise TypeError(f'config file "{cfg_file.absolute()}" is not formatted correctly')
 
+debug_vals = []
 
-def fetch_var(var_name: str):
-    if (val := os.environ.get(f'BILL_ORGANIZER_{var_name}'.upper())) is not None: return val  # Use environ variable if it exists
-    if (val := cfg_data.get(var_name)) is not None: return val  # Else grab from config file
+
+def fetch_var(var_name: str, throw: bool=True, default: Any=None):
+    """
+    Fetches the value of a config key from the environment variables if set, otherwise the config file.
+    :param var_name: The value associated with the config key. For environment variables, will have 'BILL_ORGANIZER_'
+        prepended and converted to uppercase.
+    :param throw: Whether to throw an exception if a key is not found. Defaults to True.
+    :param default: If throw is False, tha value to return if a key is not found.
+    :return: The value of the config key if found or default if not.
+    """
+    if (val := os.environ.get(f'BILL_ORGANIZER_{var_name}'.upper())) is not None:  # Use env variable if it exists
+        debug_vals.append(f'loaded "{var_name}" from environment variable with value "{val}"')
+        return val
+    if (val := cfg_data.get(var_name)) is not None:  # Else grab from config file
+        debug_vals.append(f'loaded "{var_name}" from config file "{cfg_file}" with value "{val}"')
+        return val
+    if not throw:
+        debug_vals.append(f'could not find "{var_name}" in config file or environment variables, using default "{default}"')
+        return default
     raise KeyError(f'variable "{var_name}" not found in config file or environment variables')
 
 
 # Load all the needed variables
-base_url: str = fetch_var('base_url')
 db_user: str = fetch_var('db_user')
 db_password: str = fetch_var('db_password')
 db_host: str = fetch_var('db_host')
@@ -73,29 +77,29 @@ db_port: int = fetch_var('db_port')
 db_database: str = fetch_var('db_database')
 create_db: bool = fetch_var('create_db')
 program_name: str = fetch_var('name')
+log_level: str = fetch_var('log_level', False, 'debug')
+log_format: str | list = fetch_var('log_format', False, '%(asctime)s: %(module)s (%(levelname)s) - %(message)s')
+log_file: str = fetch_var('log_file', False)
+init_time: int = fetch_var('init_time', False, 365)
+wait_time: int = fetch_var('wait_time', False, 7)
+recheck_delay: int = fetch_var('recheck_delay', False, 10)
 
-assert type(base_url) == str, type(base_url)
-if not re.match(r'^https?://.+/$', base_url):
-    raise ValueError(f'base_url "{base_url}" is not formatted correctly '
-                     f'- does is begin with "http://" or "https://", and end with a "/"?')
+# If log_file is a list, convert it to a path.
+if isinstance(log_file, list):
+    log_file: Path = Path(log_file)
 
-log('done')
+log = logging.getLogger()
+if log_file:
+    logging.basicConfig(level=getattr(logging, log_level.upper()), format=log_format, filename=log_file)
+else:
+    logging.basicConfig(level=getattr(logging, log_level.upper()), format=log_format)
 
+log.debug(f'configuration directory set to "{cfg_dir}"')
+for i in debug_vals:
+    log.debug(i)
+log.info('initialized variables')
+log.info('Connecting to database')
 
-def read_handler_data(name: str) -> dict:
-    name = Path(cfg_dir, f'{name}.yml')
-    if not os.path.isfile(name):
-        return {}
-    with open(name, 'r') as file:
-        return yaml.safe_load(file)
-
-
-def write_handler_data(name: str, data: dict) -> None:
-    with open(Path(cfg_dir, f'{name}.yml'), 'w') as file:
-        yaml.dump(data, file)
-
-
-log('Connecting to database...', '')
 # Connect to the database
 try:
     pool: mariadb.ConnectionPool = mariadb.ConnectionPool(
@@ -137,8 +141,7 @@ class Cursor:
         self.conn.close()
 
 
-log('done')
-log('verifying database configuration...', '')
+log.info('verifying database configuration')
 
 with Cursor() as cur:
     cur.execute("show tables")
@@ -158,9 +161,9 @@ with Cursor() as cur:
         else:  # Else just error out
             raise Exception(f'Missing tables in database: "{", ".join(missing_tables)}"')
 
-log('done')
+
 
 # Cleanup
-del cfg_data, cfg_file, missing_tables, required_tables, found_tables, cur, pool, fetch_var
+del cfg_data, cfg_file, missing_tables, required_tables, found_tables, cur, pool, fetch_var, file, log_file, log_level, log_format, debug_vals
 
-log('configuration complete, entering main loop')
+log.info('configuration complete, entering main loop')

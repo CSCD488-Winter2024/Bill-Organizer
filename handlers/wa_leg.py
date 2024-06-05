@@ -9,7 +9,7 @@ import requests
 
 import cfg
 import handler
-from cfg import Cursor
+from cfg import Cursor, log
 
 name = 'wa_leg'
 
@@ -39,12 +39,13 @@ async def get_node(endpoint: str, params: dict) -> ET.Element:
     wait_time = 5
     while True:
         page = requests.get(f'{base_url}{endpoint}', params=params, headers={'User-Agent': cfg.program_name})
+        log.debug(f'requested {page.url}, response code {page.status_code}')
         # If we are being rate limited:
         if page.status_code == 429:
             # If the api provided a retry_after, use that
             if 'Retry-After' in page.headers:
                 wait_time = int(page.headers['Retry-After'])
-            print(f'encountered a rate limit, waiting {wait_time} seconds')
+            log.info(f'encountered a rate limit, waiting {wait_time} seconds')
             await sleep(wait_time)
             # If no Retry-After and we are still rate limited, double wait time until success
             wait_time *= 2
@@ -60,7 +61,7 @@ async def get_sponsors(biennium: str) -> None:
     :param biennium: The biennium to update.
     :return None: None
     """
-    cfg.hlog(f'getting sponsors for biennium {biennium}', name)
+    log.info(f'getting sponsors for biennium {biennium}')
 
     root = get_node('SponsorService.asmx/GetSponsors', {'biennium': biennium})
 
@@ -81,7 +82,7 @@ async def get_sponsors(biennium: str) -> None:
             res(sponsor, 'LastName')
         ))
 
-    cfg.hlog(f'Gathered {str(len(sponsors))} sponsors for biennium {biennium}', name)
+    log.info(f'Gathered {str(len(sponsors))} sponsors for biennium {biennium}')
 
     with Cursor() as cur:
         cur.executemany(r"""
@@ -102,7 +103,7 @@ async def get_sponsors(biennium: str) -> None:
                 last_updated = default
         """, sponsors)
 
-    cfg.hlog(f'Finished writing sponsors for biennium {biennium}', name)
+    log.info(f'Finished writing sponsors for biennium {biennium}')
 
 
 async def get_bills(date: str) -> None:
@@ -113,7 +114,7 @@ async def get_bills(date: str) -> None:
     :return None: None
     """
 
-    cfg.hlog(f'getting all bills since {date}', name)
+    log.info(f'getting all bills since {date}')
 
     root = get_node('LegislationService.asmx/GetLegislationIntroducedSince', {'sinceDate': date})
 
@@ -152,7 +153,7 @@ async def get_bills(date: str) -> None:
     for i in bienniums.values():
         await i
 
-    cfg.hlog(f'Gathered {str(len(bills))} bills', name)
+    log.info(f'Gathered {str(len(bills))} bills')
 
     with Cursor() as cur:
         cur.executemany(r"""
@@ -177,7 +178,7 @@ async def get_bills(date: str) -> None:
                     last_updated       = default        
         """, bills)
 
-    cfg.hlog('Completed writing bills to database', name)
+    log.info('Completed writing bills to database')
 
 
 class wa_leg:
@@ -205,4 +206,5 @@ class wa_leg:
 
 handler.handlers[wa_leg()] = None
 
-cfg.log(f'registered handler {name}')
+
+log.info(f'registered handler {name}')
