@@ -1,33 +1,53 @@
 {% extends "master.html" %}
-{% load unicorn %}
-{% unicorn_scripts %}
 {% csrf_token %}
 {% load bootstrap5 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
 {% load static %}
 
+
 {% block title %}Bill List{% endblock %}
 
 {% block content %}
+<script type="text/javascript">
+    var rows  = {{js_rows|safe}};
+</script>
+
+<!-- gets axios for communicating with python -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <link href="/static/css/contents.css" rel="stylesheet" type="text/css">
+<script src="/static/js/bill_button.js"></script>
 <br>
 <a class="button-18"  href='{% get_static_prefix %}/{{ link }}' download> Download this list as CSV </a>
 <br>
+<!-- <button class="button-18" role="button" onclick="add_all()">Add all these bills to your list</button> -->
+<br>
 <div id="bill-table">
+
     <table>
         {% if rows and headers %}
         <tbody>
+            <!-- <th></th> -->
             {% for header in headers %}
             <th>{{ header }}</th>
             {% endfor %}
-            {% for row in rows %}            
-            <tr>
+            {% for row in rows %}
+            <tr id="row-{{ forloop.counter0 }}">
+                <!-- <td>
+                    <button class="button-18" role="button" onclick="bill_button( {{ forloop.counter0 }} )">Add</button>
+                    <button id="{{ forloop.counter0 }}-notebutton" class="button-18" role="button" onclick="handleNotes( {{ forloop.counter0 }}, '{{ row.0 }}', '{{ row.1 }}' )">note</button>
+                </td> -->
                 {% for datum in row %}
 
                 <td>{{ datum }}</td>
-                    
+
                 {% endfor %}
+
+            </tr>
+            <tr hidden id="notebox-{{ forloop.counter0 }}">
+                <td style="text-align: left" colspan={{ row|length|add:"1" }}>
+                    <label for="{{ forloop.counter0 }}-notelabel"></label><input type="text" id="{{ forloop.counter0 }}-notelabel" name="write your note here"/>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
