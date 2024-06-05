@@ -240,3 +240,6 @@ def search(query: str, author: int = None) -> tuple[str, list]:
     statement += where
 
     return statement, args
+
+def form_link(bill_number: int, original_agency: str, biennium: str):
+    return f'https://app.leg.wa.gov/billsummary?BillNumber={bill_number}&Chamber={original_agency}&Year={biennium[:4]}'
