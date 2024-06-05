@@ -33,4 +33,4 @@ async def cycle():
 
         await asyncio.sleep(cfg.recheck_delay)
 
-#asyncio.run(cycle())
+asyncio.run(cycle())
