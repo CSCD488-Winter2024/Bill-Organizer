@@ -86,8 +86,8 @@ def mybills(request):
       return redirect('/accounts/login/')
     list_id = utils.get_default_list_from_request(request)
 
-    sql = "SELECT * FROM billorg.marks \
-       JOIN bills ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
+    sql = "SELECT * FROM billorg.bills \
+       JOIN marks ON marks.biennium = bills.biennium AND marks.bill_id = bills.bill_id \
        JOIN sponsors ON bills.biennium = sponsors.biennium AND bills.sponsor_id = sponsors.id \
        WHERE list = '{}'".format(list_id)
 

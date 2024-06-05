@@ -155,9 +155,9 @@ def render_query(request,query:str,query_vars:list,use_buttons=False):
         rows = cur.fetchall()
         rows = [list(row) for row in rows]
         context = {"rows": rows, "link" : filepath, "headers": headers}
+        js_rows = dumps(rows, default = json_serial) 
+        context["js_rows"] = js_rows
         if use_buttons:
-            js_rows = dumps(rows, default = json_serial) 
-            context["js_rows"] = js_rows
             return render(request, "bill_add.html", context=context)
         else:
             return render(request, "bills_view.html", context=context)
