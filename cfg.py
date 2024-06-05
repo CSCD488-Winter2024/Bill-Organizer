@@ -82,7 +82,7 @@ log_format: str | list = fetch_var('log_format', False, '%(asctime)s: %(module)s
 log_file: str = fetch_var('log_file', False)
 init_time: int = fetch_var('init_time', False, 365)
 wait_time: int = fetch_var('wait_time', False, 7)
-recheck_delay: int = fetch_var('recheck_delay', False, 10)
+recheck_delay: int = int(fetch_var('recheck_delay', False, 10))
 
 # If log_file is a list, convert it to a path.
 if isinstance(log_file, list):
