@@ -71,10 +71,6 @@ def SearchResultsView(request):
       return HttpResponse(utils.render_query(request,query=sql,query_vars = query_vars,use_buttons=True)) #query_array))
 
 def mybills(request):
-  http = ''
-  http = "{% load bootstrap5 %}{% bootstrap_css %}{% bootstrap_javascript %}"
-  http += '<link href="/static/css/contents.css" rel="stylesheet" type="text/css">'
-  http += '{% load static %}'
   # Use the cursor to grab bills in sequence
   with Cursor() as cur: #TODO set dictionary to true
     query = request.GET.get("q")
