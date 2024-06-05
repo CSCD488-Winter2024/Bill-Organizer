@@ -34,8 +34,10 @@
             {% for row in rows %}
             <tr id="row-{{ forloop.counter0 }}">
                 <td>
-                    <button class="button-18" role="button" onclick="bill_button( {{ forloop.counter0 }} )">Add</button>
-                    <button id="{{ forloop.counter0 }}-notebutton" class="button-18" role="button" onclick="handleNotes( {{ forloop.counter0 }}, '{{ row.0 }}', '{{ row.1 }}' )">note</button>
+                    <button class="button-18" role="button" onclick="bill_button( {{ forloop.counter0 }} )">Add to list</button>
+                    <br>
+                    <br>
+                    <button id="{{ forloop.counter0 }}-notebutton" class="button-18" role="button" onclick="handleNotes( {{ forloop.counter0 }}, '{{ row.0 }}', '{{ row.1 }}' )">notes</button>
                 </td>
                 {% for datum in row %}
 
