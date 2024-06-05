@@ -181,27 +181,28 @@ async def get_bills(date: str) -> None:
     log.info('Completed writing bills to database')
 
 
+def get_last_ran():
+    with Cursor() as cur:
+        cur.execute('select last_ran from handler_status where name = ?', (name,))
+        row: tuple[datetime.datetime] = cur.fetchone()
+        return row[0].replace(tzinfo=datetime.timezone.utc) if row else datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=cfg.init_time)
+
+
 class wa_leg:
     def run_at(self) -> datetime.datetime:
-        dat = cfg.read_handler_data(name)
-        if dat is None:
-            dat = {}
-        if 'last_check' not in dat:
-            dat['last_check'] = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=365)
-            cfg.write_handler_data(name, dat)
-
-        return datetime.datetime.fromisoformat(str(dat['last_check'])) + datetime.timedelta(days=7)
-
+        return get_last_ran() + datetime.timedelta(days=cfg.wait_time)
 
     async def run(self) -> None:
-        dat = cfg.read_handler_data(name)
-
-        since = datetime.datetime.fromisoformat(str(dat['last_check']))
-
-
+        since = self.run_at()
+        now = datetime.datetime.now(datetime.timezone.utc)
         await get_bills(f'{since.month}/{since.day}/{since.year}')
-        dat['last_check'] = datetime.datetime.now(datetime.timezone.utc)
-        cfg.write_handler_data(name, dat)
+        with Cursor() as cur:
+            cur.execute('''
+                insert into handler_status 
+                    values (?, ?) 
+                    on duplicate key update 
+                        last_ran = value(last_ran)
+            ''', (name, now))
 
 
 handler.handlers[wa_leg()] = None
