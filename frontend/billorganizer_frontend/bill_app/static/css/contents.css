@@ -6,8 +6,14 @@ table, th, td {
   padding: 5px;
   
 }
-tr:nth-child(even) {
+tr:nth-child(4n-2) { /* every other bill */
   background-color: #5b6060;
+}
+tr:nth-child(2n+1) { /* every note */
+  background-color: #003025;
+}
+th {
+  background-color: #202020;
 }
 td {
   text-align: center;
