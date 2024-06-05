@@ -103,9 +103,20 @@ def search(query: str, author: int = None) -> tuple[str, list]:
     :return: The SQL statement that represents the query, as well as a list of any arguments that need to be passed with it.
     """
     stack = []
-    # Parse the query line into a list of actions
-    clr = lambda: stack.append(int(buf) if buf.isdigit() else buf)
     buf = ''
+    # Parse the query line into a list of actions
+
+    def clr():
+        nonlocal buf
+        if buf.isdigit():
+            stack.append(int(buf))
+        elif buf == 'True':
+            stack.append(True)
+        elif buf == 'False':
+            stack.append(False)
+        else:
+            stack.append(buf)
+
     i = 0
     while i < len(query) and i != -1:
         char = query[i]
@@ -122,7 +133,7 @@ def search(query: str, author: int = None) -> tuple[str, list]:
                 if pos == -1:
                     raise UserWarning(f"string not terminated - could not find ending {char}")
                 else:  # If there is a terminating character, push the whole segment between the terminators to the stack and jump to after the last terminator
-                    stack.append(buf + query[i:pos])
+                    stack.append(query[i + 1:pos])
                     i = pos + 1
                     buf = ''
                     continue
