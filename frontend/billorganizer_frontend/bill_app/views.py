@@ -1,3 +1,4 @@
+import django.views.decorators.http
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.generic import TemplateView, ListView
@@ -92,6 +93,30 @@ def mybills(request):
 
     return HttpResponse(utils.render_query(request,query=sql,query_vars = None,use_buttons=False))
 
+
+def get_note(request, biennium: str, bill_id: str):
+  if not request.user.is_authenticated:
+    return redirect('/accounts/login/')
+
+  with Cursor() as cur:
+    cur.execute("SELECT content FROM billorg.notes where author = ? and biennium = ? and bill_id = ?", (request.user.id, biennium, bill_id))
+    return HttpResponse(cur.fetchone())
+
+
+def write_note(request, biennium: str, bill_id: str):
+  if not request.user.is_authenticated:
+    return redirect('/accounts/login/')
+
+  with Cursor() as cur:
+    cur.execute("""
+      insert into notes (author, edit_time, biennium, bill_id, content)
+      values (?, default, ?, ?, ?)
+      on duplicate key update 
+        edit_time = default,
+        content = value(content)
+    """, (request.user.id, biennium, bill_id, json.loads(request.body).get('text')))
+
+  return HttpResponse()
 
 
 def bill_add(request): # see https://www.django-unicorn.com/docs/components/

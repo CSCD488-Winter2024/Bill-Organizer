@@ -11,6 +11,35 @@
 {% block content %}
 <script type="text/javascript">
     var rows  = {{js_rows|safe}};
+
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+    async function handleNotes(num, bill_biennium, bill_bill_id) {
+        const box = document.getElementById("notebox-" + num);
+
+        if (box.hidden === true) {
+            const note = await axios.get('/getnote/' + bill_biennium + '/' + bill_bill_id)
+            console.log(note);
+            document.getElementById(num + '-notelabel').value = note.data
+            box.hidden = false
+            document.getElementById(num + "-notebutton").textContent = "save"
+        }
+        else {
+            document.getElementById(num + "-notebutton").textContent = "notes"
+            const text = document.getElementById(num + '-notelabel').value
+            console.log(text);
+            await axios.put(`/writenote/${bill_biennium}/${bill_bill_id}/`, {
+                text
+            },
+            {
+                headers: {'X-CSRFToken': csrftoken}
+            })
+            box.hidden = true
+            document.getElementById(num + "-notebutton").textContent = "note"
+        }
+    }
+
+
 </script>
 
 <!-- gets axios for communicating with python -->
@@ -31,14 +60,23 @@
             {% for header in headers %}
             <th>{{ header }}</th>
             {% endfor %}
-            {% for row in rows %}            
-            <tr>
-                <td><button class="button-18" role="button" onclick="bill_button( {{ forloop.counter0 }} )">Add</button> </td>
+            {% for row in rows %}
+            <tr id="row-{{ forloop.counter0 }}">
+                <td>
+                    <button class="button-18" role="button" onclick="bill_button( {{ forloop.counter0 }} )">Add</button>
+                    <button id="{{ forloop.counter0 }}-notebutton" class="button-18" role="button" onclick="handleNotes( {{ forloop.counter0 }}, '{{ row.0 }}', '{{ row.1 }}' )">note</button>
+                </td>
                 {% for datum in row %}
 
                 <td>{{ datum }}</td>
-                    
+
                 {% endfor %}
+
+            </tr>
+            <tr hidden id="notebox-{{ forloop.counter0 }}">
+                <td style="text-align: left" colspan={{ row|length|add:"1" }}>
+                    <label for="{{ forloop.counter0 }}-notelabel"></label><input type="text" id="{{ forloop.counter0 }}-notelabel" name="write your note here"/>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

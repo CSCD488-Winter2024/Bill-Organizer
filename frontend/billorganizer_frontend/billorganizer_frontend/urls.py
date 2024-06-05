@@ -33,4 +33,6 @@ urlpatterns = [
     path("billadd/", views.bill_add, name="bill_add"),
     path("billbutton/", views.bill_button, name="bill_button"),
     path("addall/", views.add_all_button, name="add_all_button"),
+    path("getnote/<str:biennium>/<str:bill_id>/", views.get_note, name="get_note"),
+    path("writenote/<str:biennium>/<str:bill_id>/", views.write_note, name="write_note"),
 ]
