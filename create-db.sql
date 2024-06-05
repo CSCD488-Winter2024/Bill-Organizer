@@ -34,6 +34,7 @@ create table if not exists status
     last_updated             timestamp default CURRENT_TIMESTAMP not null,
     primary key (biennium, bill_id, action_date),
     foreign key (biennium, bill_id) references bills(biennium, bill_id)
+        on delete cascade
 );
 
 create table if not exists sponsors
