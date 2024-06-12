@@ -20,3 +20,6 @@ The frontend code is in "/frontend/billorganizer_frontend/". Most of this code i
     - /billorganizer_frontend/urls.py links the functions in */views.py files to website subdirectories.
     - /billorganizer_frontend/settings.py controls django settings.
 - /accounts/view.py has code for the signup page.
+
+### building the software
+To learn about building the software, see the readme on the main page of this repo.
