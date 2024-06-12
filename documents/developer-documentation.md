@@ -3,7 +3,7 @@ The source code is in two directories.
 The backend code is in the root directory of this github repo and in the "/handlers/" folder. consisting of the files:
 - main.py
 - cfg.py
-- handler.py
+- handler.py defines an interface that could be inherited by other handler classes such as wa_leg.py (though it doesnt use it)
 - util.py has helper functions used in the backend. Some of these are used by the frontend's "/bill_app/utils.py" file
 - create-db.sql
 - /handlers/wa_leg.py
